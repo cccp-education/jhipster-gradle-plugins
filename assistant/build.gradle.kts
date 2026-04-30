@@ -33,11 +33,6 @@ dependencies {
     implementation(libs.docker.java.httpclient5)
     implementation(libs.postgresql.jdbc)
 
-    // MCP SDK + transport HTTP SSE
-    implementation(libs.mcp.sdk.core)
-    implementation(libs.ktor.server.netty)
-    implementation(libs.ktor.server.sse)
-
     testImplementation(libs.junit.jupiter)
     testImplementation(gradleTestKit())
     testRuntimeOnly(libs.junit.platform.launcher)
@@ -56,11 +51,11 @@ gradlePlugin {
             displayName         = "JHipster Assistant Plugin"
             description         = """
                 Assistance au code Kotlin JHipster via RAG pgvector et LLM multi-provider.
-                Conversation AsciiDoc persistée, serveur MCP pour OpenCoder et Claude Desktop.
+                Conversation AsciiDoc persistée.
                 Documentation officielle indexée (JHipster, Kotlin, Gradle, Arrow).
             """.trimIndent()
             tags = listOf(
-                "jhipster", "kotlin", "rag", "mcp", "ai",
+                "jhipster", "kotlin", "rag", "ai",
                 "langchain4j", "pgvector", "assistant"
             )
         }

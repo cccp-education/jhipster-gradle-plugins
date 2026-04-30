@@ -54,7 +54,7 @@ plugins {
 
 === `dev.jhipster.assistant`  🚧 SNAPSHOT
 
-Assistance au code via RAG pgvector, LLM multi-provider et serveur MCP.
+Assistance au code via RAG pgvector et LLM multi-provider.
 Non publié — développement démarrera après stabilisation de `persistence`.
 
 == Structure du dépôt

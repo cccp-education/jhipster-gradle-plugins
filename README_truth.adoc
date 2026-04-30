@@ -69,7 +69,6 @@ package "jhipster-gradle-plugins" {
   package "assistant — SNAPSHOT" as assistant {
     [chat]            #D6EAF8
     [searchCode RAG]  #D6EAF8
-    [MCP Server]      #D6EAF8
     [reindexCodebase] #D6EAF8
   }
 }
@@ -82,7 +81,7 @@ end note
 
 note bottom of assistant
   **SNAPSHOT — future development**
-  LangChain4j + pgvector + MCP SDK
+  LangChain4j + pgvector
   Enable when codebase is mature
 end note
 
@@ -108,7 +107,7 @@ plugins {
 
 === `com.cheroliv.jhipster.assistant`  🚧 SNAPSHOT
 
-Code assistance via RAG pgvector, multi-provider LLM and MCP server.
+Code assistance via RAG pgvector and multi-provider LLM.
 Not published — development will start after `persistence` is stable.
 
 == Repository Structure
@@ -187,8 +186,6 @@ rectangle "assistant classpath" as assistant #D6EAF8 {
   (langchain4j-core)
   (langchain4j-pgvector)
   (docker-java)
-  (mcp-sdk)
-  (ktor-server)
   (junit-jupiter) as jj2
   (testcontainers)
 }
@@ -200,8 +197,8 @@ note right of persistence
 end note
 
 note right of assistant
-  **Final jar: ~500 KB + ONNX model**
-  Dependencies: 40+
+  **Final jar: ~400 KB + ONNX model**
+  Dependencies: 35+
   Resolution time: > 30s
 end note
 

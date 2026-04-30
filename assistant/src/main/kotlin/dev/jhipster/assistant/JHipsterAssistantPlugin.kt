@@ -13,8 +13,7 @@ import org.gradle.api.Project
  * - RAG sur la base de code complète (codebase, generated, jdl, config)
  * - RAG sur documentation officielle (JHipster, Kotlin, Gradle, Arrow)
  * - Conversation AsciiDoc persistée avec mémoire via RAG
- * - Serveur MCP stdio + HTTP SSE (OpenCoder, Claude Desktop)
- * - Tools MCP : readFile, writeFile, patchFile, listFiles, searchCode
+ * - Tâches Gradle pour l'indexation et l'interrogation du codebase
  */
 class JHipsterAssistantPlugin : Plugin<Project> {
     override fun apply(project: Project) {

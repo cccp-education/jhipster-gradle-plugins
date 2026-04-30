@@ -19,3 +19,15 @@
 
 === Prochaine session
 * Definir la mission session 1 avec l'utilisateur
+
+---
+
+== Session 1 — Implantation Strategie Backup Rotation — Module: racine
+
+=== Fait
+* [AGENT.adoc] + etape 7 checklist confirmation ✅
+* [.agents/PROCEDURES.adoc] + backup/*/ table LAZY + etape 7 checklist ✅
+
+=== Prochaine session
+* [persistence] EPIC 5 — Renforcer tests unitaires + TestKit
+* [persistence] EPIC 7 — Publication v0.0.1 Plugin Portal

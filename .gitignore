@@ -7,6 +7,8 @@ build/
 **/build/
 !src/**/build/
 
+.kotlin
+
 # Plugin Portal credentials — ne jamais committer
 gradle.properties
 

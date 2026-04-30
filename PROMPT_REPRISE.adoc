@@ -1,33 +1,35 @@
-= Prompt de Reprise — JHipster Gradle Plugins — Session 1
+= Prompt de Reprise — JHipster Gradle Plugins — Session 2
 
 _Regles absolues_ : voir `AGENT.adoc` section "Regles Absolues"
 
 ____
-**Statut** : Initialisation de la gouvernance agent.
-**Mission** : A definir par l'utilisateur.
+**Statut** : Session 1 — Implantation strategie backup rotation terminee.
+**Mission** : Session 2 — A definir par l'utilisateur.
 ____
 
 '''
 
-== Session 0 — Resume
+== Session 1 — Resume
 
-**Date** : 2026-04-28
-**Resultat** : OK — Mise en place de la gouvernance agent (AGENT.adoc + dossiers .agents/).
+**Date** : 2026-04-30
+**Resultat** : ✅ OK — Strategie backup rotation alignee avec le portefeuille de projets.
 
-**Archive** : aucune session precedente archivee
+| Fichier | Modification |
+| `AGENT.adoc` | + etape 7 dans checklist confirmation |
+| `.agents/PROCEDURES.adoc` | + backup/*/ table LAZY + etape 7 checklist |
+
+**Archive** : `.agents/sessions/1-implantation-strategie-backup-rotation.adoc`
 
 '''
 
-== Session 1 — Priorites
+== Session 2 — Priorites
 
 _Mission_ : A definir par l'utilisateur. Propositions possibles :
 
-. **persistence** : Tests unitaires CleanCodebaseTask, GenerateJdlTask, SyncCodebaseTask
-. **persistence** : Ameliorer messages d'erreur (JHipster CLI absent, nvm non installe, Docker manquant)
+. **persistence** : EPIC 5 — Renforcer tests unitaires CleanCodebaseTask, GenerateJdlTask, SyncCodebaseTask
+. **persistence** : EPIC 7 — Publication v0.0.1 sur Gradle Plugin Portal (necessite `gradle.properties` avec credentials)
 . **persistence** : Tests fonctionnels avec Gradle TestKit (projet JHipster cible)
-. **persistence** : Publication v0.0.1 sur Gradle Plugin Portal (necessite `gradle.properties` avec credentials)
-. **assistant** : Demarrer l'implementation SNAPSHOT (RAG pgvector, connectivite au LLM)
-. **docs** : README bilingue FR/EN pour chaque plugin
+. **assistant** : EPIC 2 — Demarrer RAG pgvector (indexation doc JHipster/Kotlin/Gradle)
 
 === Criteres d'Acceptation (session a definir)
 
@@ -42,6 +44,7 @@ _Mission_ : A definir par l'utilisateur. Propositions possibles :
 * Convention plugin dans `buildSrc/` configure Kotlin + publishing pour les deux sous-projets
 * `persistence` version `0.0.1` — `assistant` version `0.1.0-SNAPSHOT`
 * `gradle.properties.template` → `gradle.properties` pour credentials Plugin Portal
+* Backup rotation : verifier N%10 et seuil EAGER 500 lignes en fin de session
 
 == Regles
 

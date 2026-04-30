@@ -53,7 +53,7 @@ plugins {
 
 === `com.cheroliv.jhipster.assistant`  🚧 SNAPSHOT
 
-Code assistance via RAG pgvector, multi-provider LLM and MCP server.
+Code assistance via RAG pgvector and multi-provider LLM.
 Not published — development will start after `persistence` is stable.
 
 == Repository Structure

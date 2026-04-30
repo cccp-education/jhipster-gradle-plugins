@@ -16,14 +16,14 @@
 == Projet
 
 **Nom** : jhipster-gradle-plugins (mono-repo de deux plugins Gradle JHipster)
-**Stack** : Kotlin, Gradle (plugin development), JHipster, JUnit 5, TestContainers, LangChain4j, pgvector, MCP
+**Stack** : Kotlin, Gradle (plugin development), JHipster, JUnit 5, TestContainers, LangChain4j, pgvector
 **Documentation** : AsciiDoc + README + Diagrammes
 
 === Plugins
 
 * **`com.cheroliv.jhipster.persistence`** ✅ stable (v0.0.1) — Orchestre le cycle clean → generate → sync d'un projet JHipster
 sans perdre le code metier Kotlin persiste dans `__codebase__/`. Convention-based, pas de DSL.
-* **`com.cheroliv.jhipster.assistant`** 🚧 SNAPSHOT (v0.1.0-SNAPSHOT) — Assistance au code via RAG pgvector, LLM multi-provider et serveur MCP.
+* **`com.cheroliv.jhipster.assistant`** 🚧 SNAPSHOT (v0.1.0-SNAPSHOT) — Assistance au code via RAG pgvector et LLM multi-provider.
 
 === Structure du Mono-Repo
 
@@ -52,7 +52,7 @@ jhipster-gradle-plugins/
 === Frontiere de Dependances
 
 Le boundary Gradle garantit physiquement que `persistence` ne peut pas accidentellement
-tirer LangChain4j ou Docker. `assistant` isole toutes les dependances lourdes (RAG, MCP, Docker Java client).
+tirer LangChain4j ou Docker. `assistant` isole toutes les dependances lourdes (RAG, Docker Java client).
 
 == Regles Absolues
 
@@ -140,6 +140,7 @@ _Confirmation finale OBLIGATOIRE_ :
 [✅] 4. INDEX.adoc mis a jour
 [✅] 5. TEST_COVERAGE_ANALYSIS.adoc mis a jour (si applicable)
 [✅] 6. COMPLETED_TASKS_ARCHIVE.adoc mis a jour
+[✅] 7. Backup rote (si applicable)
 ----
 
 _Aucune etape ne peut etre marquee [✅] si le fichier n'a pas ete effectivement modifie et verifie._
@@ -167,7 +168,7 @@ _Aucune etape ne peut etre marquee [✅] si le fichier n'a pas ete effectivement
 === Assistant Plugin (`assistant/`)
 
 * **JHipsterAssistantPlugin** : Point d'entree stub (SNAPSHOT)
-* Dependances planifiees : RAG pgvector, LLM multi-provider (Ollama/Gemini/Mistral), serveur MCP
+* Dependances planifiees : RAG pgvector, LLM multi-provider (Ollama/Gemini/Mistral)
 * Tests planifies : JUnit 5 + Gradle TestKit + TestContainers PostgreSQL
 
 === Convention Plugin (`buildSrc/`)
@@ -199,6 +200,15 @@ _Aucune etape ne peut etre marquee [✅] si le fichier n'a pas ete effectivement
 | `.agents/INDEX.adoc` | Regles absolues + sessions recentes + roadmap | 200 lignes
 |===
 
+=== Mécanisme de Backup — Hot/Warm/Cold Storage
+
+* **Hot (EAGER)** : 10 dernières sessions dans INDEX, PROMPT_REPRISE N+1, sessions N-1 et N
+* **Warm (LAZY)** : SESSIONS_HISTORY récent, références techniques, procédures, agents spécialisés
+* **Cold (`backup/`)** : Sessions N-10 et antérieures — copie intégrale, sans transformation ni réindexation
+* **Règle de rotation** : Tous les ~10 sessions, déplacer le paquet de fichiers agents (INDEX, SESSIONS_HISTORY, COMPLETED_TASKS_ARCHIVE, sessions/) tel quel dans `backup/`
+* **Stockage** : `.agents/backup/Y{année}-sessions-{plage}/` — structure identique à `.agents/` actif
+* **Principe** : Aucune donnée supprimée, tout relocalisé. L'agent ne charge jamais `backup/`. L'humain seul décide de la distillation.
+
 === Fichiers LAZY
 
 |===
@@ -226,6 +236,24 @@ _Aucune etape ne peut etre marquee [✅] si le fichier n'a pas ete effectivement
 
 **Mots-cles declencheurs** : "fin de session", "session terminee", "je quitte", "a plus tard", "on arrete la"
 
+**Rotation backup** : Mots-cles explicites — "rotation backup", "backup rotation", "lance la rotation backup" — declenchent une rotation independante (hors fin de session).
+
 _Regle d'or_ : Executer les 6 etapes SILENCIEUSEMENT, puis afficher la checklist de confirmation.
 
 _Voir aussi_ : `.agents/PROCEDURES.adoc` (templates detailles)
+
+==== Capteur de Rotation Backup (etape 7 optionnelle)
+
+**Declenchement automatique** — Apres l'etape 6, avant la checklist, l'agent verifie :
+
+. `N % 10 == 0` (session multiple de 10)
+. **OU** les fichiers EAGER cumules depassent **500 lignes** (`wc -l .agents/INDEX.adoc .agents/archives/COMPLETED_TASKS_ARCHIVE_*.adoc PROMPT_REPRISE.adoc`)
+
+Si l'une des conditions est vraie, l'agent **execute l'etape 7** au sein de la procedure de fin de session :
+
+. Creer le dossier `.agents/backup/Y{annee}-sessions-{plage}/` (plage = sessions N-5* et anterieures)
+. Y copier **integralement** INDEX, SESSIONS_HISTORY, COMPLETED_TASKS_ARCHIVE et les fichiers sessions/ concernes
+. Tronquer les fichiers actifs aux **10 dernieres sessions** (sliding window)
+. Ajouter la localisation de la nouvelle vague dans INDEX.adoc (`_Localisation active_`)
+
+La checklist s'affiche ensuite **apres** cette etape, avec `[✅] 7. Backup rote (si applicable)`.

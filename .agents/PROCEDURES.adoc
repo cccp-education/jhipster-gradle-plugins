@@ -227,6 +227,7 @@ Ajouter section :
 | `.agents/sessions/{N}*.adoc` | LAZY | Illimite | Sur demande (details session)
 | `.agents/SESSIONS_HISTORY.adoc` | LAZY | Illimite | Sur besoin (historique)
 | `.agents/archives/COMPLETED_TASKS_ARCHIVE_*.adoc` | LAZY | Illimite | Fin session (archive)
+| `.agents/backup/*/` | LAZY | Illimite | Vagues froides (rotation)
 | `.agents/AGENT_SESSION_MANAGER.adoc` | LAZY | Illimite | Sur besoin (procedure)
 | `.agents/PROCEDURES.adoc` | LAZY | Illimite | Sur besoin (details LAZY/EAGER)
 |===
@@ -270,6 +271,7 @@ _Confirmation finale OBLIGATOIRE_ :
 [✅] 4. INDEX.adoc mis a jour
 [✅] 5. TEST_COVERAGE_ANALYSIS.adoc mis a jour (si applicable)
 [✅] 6. COMPLETED_TASKS_ARCHIVE.adoc mis a jour
+[✅] 7. Backup rote (si applicable)
 ----
 
 _Aucune etape ne peut etre marquee [✅] si le fichier n'a pas ete effectivement modifie et verifie._
