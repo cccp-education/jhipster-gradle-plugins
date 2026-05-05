@@ -191,12 +191,12 @@ il DOIT consulter ces codebases comme reference. Ces chemins sont LAZY — ne ja
 
 |===
 | Projet | Chemin | Role
-| bakery-gradle | `/home/cheroliv/workspace/__repositories__/bakery-gradle` | Plugin Gradle convention-based
-| plantuml-gradle | `/home/cheroliv/workspace/__repositories__/plantuml-gradle` | Plugin Gradle mature, reference principale
-| newpipe-gradle | `/home/cheroliv/workspace/__repositories__/newpipe-gradle` | Plugin Gradle
-| slider-gradle | `/home/cheroliv/workspace/__repositories__/slider-gradle` | Plugin Gradle
-| codebase-gradle | `/home/cheroliv/workspace/__repositories__/codebase-gradle` | Plugin Gradle
-| readme-gradle | `/home/cheroliv/workspace/__repositories__/readme-gradle` | Plugin Gradle
+| bakery-gradle | `/home/cheroliv/workspace/foundry/bakery-gradle` | Plugin Gradle convention-based
+| plantuml-gradle | `/home/cheroliv/workspace/foundry/plantuml-gradle` | Plugin Gradle mature, reference principale
+| newpipe-gradle | `/home/cheroliv/workspace/foundry/newpipe-gradle` | Plugin Gradle
+| slider-gradle | `/home/cheroliv/workspace/foundry/slider-gradle` | Plugin Gradle
+| codebase-gradle | `/home/cheroliv/workspace/foundry/codebase-gradle` | Plugin Gradle
+| readme-gradle | `/home/cheroliv/workspace/foundry/readme-gradle` | Plugin Gradle
 |===
 
 == Gestion du Contexte — LAZY/EAGER
