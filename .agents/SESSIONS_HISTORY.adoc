@@ -9,6 +9,7 @@
 | 3 | 2026-05-01 | feature | Renforcement tests unitaires EPIC 5 & 6 (5 classes creees, 26 tests total, retrait EPIC 4 MCP) | persistence | 9/10
 | 4 | 2026-05-01 | chore | Retrait EPIC 7 du backlog (publier n'est pas un EPIC, c'est une commande shell) | racine | 9/10
 | 5 | 2026-05-01 | feature | Finalisation EPIC 5 — tests GenerateJdlTask (19) + DockerTask (11), ~45 tests total | persistence | 9/10
+| 6 | 2026-06-01 | governance | Regularisation 19e borough workspace (Philly integre dans AGENTS.adoc) | racine | 10/10
 |===
 | 007 | 2026-05-04 | governance | Renommage openclaw→quizz-benchmark | -
 | 008 | 2026-05-07 | chore | Migration chemins foundry/ → foundry/OSS/ dans INDEX.adoc (granularisation OSS/CSS) | -

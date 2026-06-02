@@ -1,0 +1,10 @@
+= PROMPT_REPRISE.adoc — Session 007
+
+_Session 006 cloturee (2026-06-01)_ : Regularisation 19e borough workspace.
+Le projet jhipster-gradle-plugins est desormais reconnu comme le 19eme borough
+(Philly) dans le portefeuille workspace — `foundry/public/jhipster-gradle-plugins/`.
+
+Aucun changement dans le projet lui-meme : gouvernance `.agents/` preservee,
+architecture mono-repo inchangee, boundary de dependances persistence/assistant intact.
+
+Mission session 007 : A definir par l'utilisateur.

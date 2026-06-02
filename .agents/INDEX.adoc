@@ -2,10 +2,9 @@
 
 _Regles absolues_ : voir `AGENT.adoc` section "Regles Absolues"
 
-_Derniere mise a jour_ : 2026-05-07
-_Session en cours_ : 6 — A definir par l'utilisateur
-_Session inter-session_ : 007 (chore migration chemins foundry/ → foundry/OSS/ dans INDEX.adoc)
-_Session terminee_ : 5 — Finalisation EPIC 5 Tests Persistence
+_Derniere mise a jour_ : 2026-06-01
+_Session en cours_ : 7 — A definir par l'utilisateur
+_Session terminee_ : 6 — Regularisation 19e borough workspace
 
 _Localisation active_ : `.agents/INDEX.adoc` (sessions recentes), `.agents/SESSIONS_HISTORY.adoc` (historique), `.agents/sessions/` (archives)
 
@@ -116,6 +115,7 @@ Si on casse ca, tout le design du mono-repo s'effondre.
 | 3 | 2026-05-01 | feature | Renforcement tests EPIC 5 & 6 (5 classes creees, 26 tests, retrait EPIC 4 MCP) | 9/10
 | 4 | 2026-05-01 | chore | Retrait EPIC 7 du backlog (publier n'est pas un EPIC) | 9/10
 | 5 | 2026-05-01 | feature | Finalisation EPIC 5 — tests GenerateJdlTask (19) + DockerTask (11), ~45 tests total | 9/10
+| 006 | 2026-06-01 | governance | Regularisation 19e borough workspace (Philly integre dans AGENTS.adoc, chaine de valeur, historique) | 10/10
 | 007 | 2026-05-07 | chore | Migration chemins foundry/ → foundry/OSS/ (granularisation OSS/CSS) | —
 |===
 

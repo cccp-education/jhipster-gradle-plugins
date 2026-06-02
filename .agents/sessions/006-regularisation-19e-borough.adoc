@@ -1,0 +1,27 @@
+= Session 006 — Regularisation 19e Borough Workspace
+:type: governance
+:score: 10/10
+:date: 2026-06-01
+:module: racine
+:projet: JHipster Gradle Plugins (mono-repo — persistence + assistant)
+
+== Contexte
+
+Philly (jhipster-gradle-plugins) est officiellement reconnu comme le *19eme borough* du workspace.
+
+== Actions
+
+- Integration du projet dans le tableau des boroughs de `~/workspace/AGENTS.adoc`
+- Ajout dans la chaine de valeur (Philly — tooling JHipster : persistence + assistant RAG LLM)
+- Ajout dans l'historique des mises a jour d'AGENTS.adoc (2026-06-01)
+
+== Impact
+
+- Aucun changement dans le projet lui-meme
+- Gouvernance `.agents/` preservee intacte (5 sessions terminees, structure mature)
+- Le projet reste un mono-repo de 2 plugins Gradle : `com.cheroliv.jhipster.persistence` (stable v0.0.1) + `com.cheroliv.jhipster.assistant` (SNAPSHOT v0.1.0-SNAPSHOT)
+- GroupId inchange (`com.cheroliv`), boundary de dependances inchange, CI inchange
+
+== Score : 10/10
+
+Regularisation purement administrative — rien casse, rien touche, identite de borough ajoutee.
