@@ -1,0 +1,80 @@
+= BACKLOG — JHipster Gradle Plugins (Philly)
+:sectnums:
+
+== EPIC 1 : Initialisation gouvernance et structure multi-module
+
+*Statut* : A FAIRE
+*Priorite* : P0
+
+*Sous-taches* :
+
+* [ ] Creer BACKLOG.adoc (ce fichier)
+* [ ] Verifier structure multi-module (persistence + assistant)
+* [ ] Mettre a jour le portefeuille transverse
+
+== EPIC 2 : Persistence Plugin — Publication Maven Central
+
+*Statut* : A FAIRE
+*Priorite* : P0
+
+*Sous-taches* :
+
+* [ ] Verifier build.gradle.kts (group, version, Sonatype, signing)
+* [ ] Publier persistence-plugin sur Maven Central
+
+== EPIC 3 : Assistant Plugin — Publication Maven Central
+
+*Statut* : A FAIRE
+*Priorite* : P0
+
+*Sous-taches* :
+
+* [ ] Verifier build.gradle.kts (group, version, Sonatype, signing)
+* [ ] Publier assistant-plugin sur Maven Central
+
+'''
+
+== EPIC PUB — Publication Maven Central + Plugin Portal
+
+_Source : configuration/EPIC_PUB.adoc (Session 096)_
+
+=== PUB-2.2 — Mettre a jour le commentaire relocation
+
+Dans le `build.gradle.kts`, remplacer :
+```kotlin
+// RELOCATION : prepare la migration du groupId education.cccp →
+// <futur-domaine>. Activer avec -Prem relocationGroup="io.github.cccp-education"
+// Effet : injecte <distributionManagement><relocation><groupId>...</groupId></relocation>
+// dans le POM publie. Les consommateurs existants seront rediriges automatiquement
+// vers le nouveau groupId lors de la prochaine maj de dependance.
+```
+Par :
+```kotlin
+// RELOCATION : garde comme echappatoire future.
+// Activable avec -Prem relocationGroup="<futur-namespace>"
+```
+
+=== PUB-3.18 — jhipster-persistence
+
+*Artefact* : `education.cccp.jhipster.persistence`
+
+```bash
+cd foundry/public/jhipster-gradle-plugins && ./gradlew :persistence:publish closeAndRelease
+```
+
+=== PUB-3.19 — jhipster-assistant
+
+*Artefact* : `education.cccp.jhipster.assistant`
+
+```bash
+cd foundry/public/jhipster-gradle-plugins && ./gradlew :assistant:publish closeAndRelease
+```
+
+=== PUB-5.18 — Verification
+
+.Verification Maven Central
+
+| Artefact | URL |
+|---|---|
+| jhipster-persistence | https://central.sonatype.com/artifact/education.cccp/jhipster-persistence |
+| jhipster-assistant | https://central.sonatype.com/artifact/education.cccp/jhipster-assistant |
