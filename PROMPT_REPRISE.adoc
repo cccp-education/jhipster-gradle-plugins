@@ -1,10 +1,21 @@
-= PROMPT_REPRISE.adoc — Session 007
+= PROMPT_REPRISE.adoc — Session 008 TERMINÉE
 
-_Session 006 cloturee (2026-06-01)_ : Regularisation 19e borough workspace.
-Le projet jhipster-gradle-plugins est desormais reconnu comme le 19eme borough
-(Philly) dans le portefeuille workspace — `foundry/public/jhipster-gradle-plugins/`.
+_Session 008 (2026-06-11)_ : Publication Maven Central des deux plugins.
+Root build désactivé (readme:0.0.0), settings nmcp ajouté.
+Persistence : POM sans guard + Sonatype→nmcp + signing GPG.
+Assistant : version 0.1.0-SNAPSHOT→0.1.0, plugin ID dev.jhipster.assistant→education.cccp.jhipster.assistant, POM complet + nmcp + signing.
+Les deux publiés séparément sur Maven Central ✅
 
-Aucun changement dans le projet lui-meme : gouvernance `.agents/` preservee,
-architecture mono-repo inchangee, boundary de dependances persistence/assistant intact.
+== Prochaine session (009)
 
-Mission session 007 : A definir par l'utilisateur.
+À définir :
+- Assistant EPIC 2 — RAG pgvector (indexation doc JHipster/Kotlin/Gradle/Arrow)
+- Assistant EPIC 3 — Multi-provider LLM (Ollama/Gemini/Mistral)
+- Assistant EPIC 5 — Tests intégrés + TestContainers
+
+== Rappels
+
+- **persistence** : `education.cccp:jhipster-persistence:0.0.1` (Maven Central)
+- **assistant** : `education.cccp:jhipster-assistant:0.1.0` (Maven Central)
+- Boundary : persistence = lightweight (pas de LangChain4j/Docker/pgvector)
+- ZERO commit/push sans permission explicite

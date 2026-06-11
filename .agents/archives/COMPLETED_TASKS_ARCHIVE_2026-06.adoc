@@ -1,0 +1,22 @@
+= Archive des Taches Terminees — Juin 2026
+
+== Session 008 — 2026-06-11 — Publication Maven Central
+
+**Contexte** : Publication des deux plugins jhipster-gradle-plugins sur Maven Central via nmcp.
+VAGUE 4.7 — Philly.
+
+**Tâches réalisées** :
+
+* [x] Root `build.gradle.kts` désactivé (readme:0.0.0 bloquait le build)
+* [x] `settings.gradle.kts` : ajout plugin `com.gradleup.nmcp.settings` 1.5.0 + `nmcpSettings`
+* [x] Persistence : POM sans guard (`withType<MavenPublication>`) + Sonatype→nmcp + `signing { useGpgCmd() }`
+* [x] Assistant : version `0.1.0-SNAPSHOT` → `0.1.0`
+* [x] Assistant : plugin ID `dev.jhipster.assistant` → `education.cccp.jhipster.assistant`
+* [x] Assistant : ajout publishing/signing/POM complet + Sonatype→nmcp
+* [x] Publication séparée : persistence d'abord, puis assistant
+
+**Fichiers modifiés** : `build.gradle.kts` (root), `settings.gradle.kts`, `persistence/build.gradle.kts`, `assistant/build.gradle.kts`
+
+**Résultats** :
+- `education.cccp:jhipster-persistence:0.0.1` publié sur Maven Central ✅
+- `education.cccp:jhipster-assistant:0.1.0` publié sur Maven Central ✅

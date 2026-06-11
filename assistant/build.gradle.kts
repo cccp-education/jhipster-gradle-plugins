@@ -6,6 +6,7 @@
  * Statut : SNAPSHOT — non publié.
  */
 plugins {
+    signing
     id("jhipster.gradle-plugin-conventions")
     alias(libs.plugins.kotlin.serialization)
 }
@@ -46,7 +47,7 @@ gradlePlugin {
 
     plugins {
         create("jhipsterAssistant") {
-            id                  = "dev.jhipster.assistant"
+            id                  = "education.cccp.jhipster.assistant"
             implementationClass = "dev.jhipster.assistant.JHipsterAssistantPlugin"
             displayName         = "JHipster Assistant Plugin"
             description         = """
@@ -60,4 +61,56 @@ gradlePlugin {
             )
         }
     }
+}
+
+publishing {
+    publications {
+        withType<MavenPublication> {
+            pom {
+                name.set(gradlePlugin.plugins.getByName("jhipsterAssistant").displayName)
+                description.set(gradlePlugin.plugins.getByName("jhipsterAssistant").description)
+                url.set(gradlePlugin.website.get())
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("cccp-education")
+                        name.set("CCCP Education")
+                        email.set("cccp.education@gmail.com")
+                    }
+                }
+                scm {
+                    connection.set(gradlePlugin.vcsUrl.get())
+                    developerConnection.set(gradlePlugin.vcsUrl.get())
+                    url.set(gradlePlugin.vcsUrl.get())
+                }
+                project.findProperty("relocationGroup")?.let { targetGroup ->
+                    withXml {
+                        val pom = asElement()
+                        val doc = pom.ownerDocument
+                        val distMgmt = doc.createElement("distributionManagement")
+                        val relocation = doc.createElement("relocation")
+                        relocation.appendChild(doc.createElement("groupId")).also { it.textContent = targetGroup.toString() }
+                        relocation.appendChild(doc.createElement("artifactId")).also { it.textContent = project.name }
+                        distMgmt.appendChild(relocation)
+                        pom.appendChild(distMgmt)
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
+signing {
+    if (System.getenv("CI") != "true" && !version.toString().endsWith("-SNAPSHOT")) {
+        sign(publishing.publications)
+    }
+    useGpgCmd()
 }

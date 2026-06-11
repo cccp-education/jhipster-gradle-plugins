@@ -10,6 +10,6 @@
 | 4 | 2026-05-01 | chore | Retrait EPIC 7 du backlog (publier n'est pas un EPIC, c'est une commande shell) | racine | 9/10
 | 5 | 2026-05-01 | feature | Finalisation EPIC 5 — tests GenerateJdlTask (19) + DockerTask (11), ~45 tests total | persistence | 9/10
 | 6 | 2026-06-01 | governance | Regularisation 19e borough workspace (Philly integre dans AGENTS.adoc) | racine | 10/10
+| 7 | 2026-05-07 | chore | Migration chemins foundry/ → foundry/OSS/ dans INDEX.adoc (granularisation OSS/CSS) | racine | —
+| 8 | 2026-06-11 | publish | Publication Maven Central — root désactivé, settings nmcp, persistence POM+nmcp+signing, assistant 0.1.0+plugin ID education.cccp.jhipster.assistant+POM+nmcp+signing. Les deux publiés | persistence+assistant | 9/10
 |===
-| 007 | 2026-05-04 | governance | Renommage openclaw→quizz-benchmark | -
-| 008 | 2026-05-07 | chore | Migration chemins foundry/ → foundry/OSS/ dans INDEX.adoc (granularisation OSS/CSS) | -

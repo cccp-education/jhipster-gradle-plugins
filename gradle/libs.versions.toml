@@ -1,7 +1,7 @@
 [versions]
 # ── Versions des plugins produits ─────────────────────────────────────────────
 persistence = "0.0.1"
-assistant = "0.1.0-SNAPSHOT"
+assistant = "0.1.0"
 readme = "0.0.0"
 
 # ── Outillage Gradle/Kotlin ───────────────────────────────────────────────────

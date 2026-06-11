@@ -2,9 +2,9 @@
 
 _Regles absolues_ : voir `AGENT.adoc` section "Regles Absolues"
 
-_Derniere mise a jour_ : 2026-06-01
-_Session en cours_ : 7 — A definir par l'utilisateur
-_Session terminee_ : 6 — Regularisation 19e borough workspace
+_Derniere mise a jour_ : 2026-06-11
+_Session en cours_ : 9 — À définir
+_Session terminee_ : 8 — Publication Maven Central (persistence + assistant)
 
 _Localisation active_ : `.agents/INDEX.adoc` (sessions recentes), `.agents/SESSIONS_HISTORY.adoc` (historique), `.agents/sessions/` (archives)
 
@@ -76,22 +76,6 @@ _Les 6 etapes OBLIGATOIRES_ (dans l'ordre) :
 . ✅ _Mettre a jour TEST_COVERAGE_ANALYSIS.adoc_ si des tests ont ete ajoutes/modifies
 . ✅ _Mettre a jour COMPLETED_TASKS_ARCHIVE.adoc_ `.agents/archives/COMPLETED_TASKS_ARCHIVE_{mois}.adoc`
 
-_Confirmation finale OBLIGATOIRE_ :
-
-[source]
-----
-✅ Procedure de fin de session executee
-📋 Checklist :
-[✅] 1. Archive session N creee
-[✅] 2. PROMPT_REPRISE.adoc mis a jour pour session N+1
-[✅] 3. SESSIONS_HISTORY.adoc mis a jour
-[✅] 4. INDEX.adoc mis a jour
-[✅] 5. TEST_COVERAGE_ANALYSIS.adoc mis a jour (si applicable)
-[✅] 6. COMPLETED_TASKS_ARCHIVE.adoc mis a jour
-----
-
-_Aucune etape ne peut etre marquee [✅] si le fichier n'a pas ete effectivement modifie et verifie._
-
 === 4. BOUNDARY DE DEPENDANCES — REGLE ABSOLUE
 
 **persistence/ est lightweight** — pas de LangChain4j, Docker, pgvector, MCP, Ktor.
@@ -99,9 +83,6 @@ _Aucune etape ne peut etre marquee [✅] si le fichier n'a pas ete effectivement
 * ❌ _Interdit_ : Ajouter une dependance LangChain4j, Docker, pgvector, MCP dans `persistence/build.gradle.kts`
 * ❌ _Interdit_ : Ajouter une dependance Ktor, KotlinX Serialization dans `persistence/build.gradle.kts`
 * ✅ _Si une dependance lourde est necessaire_ : Elle va DANS `assistant/build.gradle.kts`
-
-_Le but du boundary Gradle_ : `persistence` est utilisable sans Docker, sans LLM, sans infrastructure.
-Si on casse ca, tout le design du mono-repo s'effondre.
 
 '''
 
@@ -115,8 +96,9 @@ Si on casse ca, tout le design du mono-repo s'effondre.
 | 3 | 2026-05-01 | feature | Renforcement tests EPIC 5 & 6 (5 classes creees, 26 tests, retrait EPIC 4 MCP) | 9/10
 | 4 | 2026-05-01 | chore | Retrait EPIC 7 du backlog (publier n'est pas un EPIC) | 9/10
 | 5 | 2026-05-01 | feature | Finalisation EPIC 5 — tests GenerateJdlTask (19) + DockerTask (11), ~45 tests total | 9/10
-| 006 | 2026-06-01 | governance | Regularisation 19e borough workspace (Philly integre dans AGENTS.adoc, chaine de valeur, historique) | 10/10
+| 006 | 2026-06-01 | governance | Regularisation 19e borough workspace (Philly integre dans AGENTS.adoc) | 10/10
 | 007 | 2026-05-07 | chore | Migration chemins foundry/ → foundry/OSS/ (granularisation OSS/CSS) | —
+| 008 | 2026-06-11 | publish | Publication Maven Central — root désactivé, settings nmcp, persistence POM+nmcp+signing, assistant 0.1.0+plugin ID+POM+nmcp+signing. Les deux publiés ✅ | 9/10
 |===
 
 '''
@@ -125,8 +107,8 @@ Si on casse ca, tout le design du mono-repo s'effondre.
 
 |===
 | Module | Statut | Version | Tests | Publication
-| **persistence** | ✅ Stable | 0.0.1 | JUnit 5 + TestKit (tests a renforcer) | Plugin Portal (a publier)
-| **assistant** | 🚧 SNAPSHOT | 0.1.0-SNAPSHOT | Stub, tests planifies | Non publie
+| **persistence** | ✅ Stable | 0.0.1 | JUnit 5 + TestKit (~50 tests) | ✅ Maven Central (session 008)
+| **assistant** | ✅ Release | 0.1.0 | Stub, tests planifies | ✅ Maven Central (session 008)
 | **buildSrc** | ✅ Convention plugin operationnel | - | - | -
 |===
 
@@ -140,19 +122,19 @@ Si on casse ca, tout le design du mono-repo s'effondre.
 | EPIC 2 : Plugin convention partage buildSrc | ✅ 100% | 9/10 | ✅ TERMINE
 | EPIC 3 : Tasks CleanCodebase + GenerateJdl + SyncCodebase | ✅ 100% | 9/10 | ✅ TERMINE
 | EPIC 4 : Task Docker (dockerDb, dockerUp, dockerDown) | ✅ 100% | 9/10 | ✅ TERMINE
-| EPIC 5 : Tests unitaires + TestKit | ✅ 100% | 9/10 | ✅ TERMINE — ~45 tests (6 TestKit + ~39 unitaires)
-| EPIC 6 : Tests fonctionnels projet JHipster cible | 🟡 30% | - | 🟡 P2 — Tests TestKit ajoutes
-| EPIC 8 : Documentation (README FR/EN, doc.adoc) | 🟡 60% | - | 🟡 P2 — READMEs existent, retouche
+| EPIC 5 : Tests unitaires + TestKit | ✅ 100% | 9/10 | ✅ TERMINE
+| EPIC 6 : Tests fonctionnels projet JHipster cible | 🟡 30% | - | 🟡 P2
+| EPIC 8 : Documentation (README FR/EN, doc.adoc) | 🟡 60% | - | 🟡 P2
+| EPIC PUB : Publication Maven Central | ✅ 100% | 9/10 | ✅ TERMINE — Session 008
 |===
 
 == 📈 EPICs — Assistant Plugin
 
 |===
 | EPIC | Progression | Score | Priorite
-| EPIC 1 : Structure stub SNAPSHOT | ✅ 100% | 9/10 | ✅ TERMINE
+| EPIC 1 : Structure stub SNAPSHOT → Release | ✅ 100% | 9/10 | ✅ TERMINE — Session 008 (0.1.0, education.cccp.jhipster.assistant)
 | EPIC 2 : RAG pgvector (indexation doc JHipster/Kotlin/Gradle/Arrow) | 🟡 0% | - | 🟡 P1 — A FAIRE
 | EPIC 3 : Multi-provider LLM (Ollama/Gemini/Mistral) | 🟡 0% | - | 🟡 P1 — A FAIRE
-
 | EPIC 5 : Tests integres + TestContainers | 🟡 0% | - | 🟡 P1 — A FAIRE
 |===
 
@@ -170,8 +152,8 @@ Si on casse ca, tout le design du mono-repo s'effondre.
 | `.agents/PROCEDURES.adoc` | Procedure fin session + templates LAZY/EAGER | LAZY
 | `.agents/SESSION_CHECKLIST.adoc` | Quand changer de session + metriques | LAZY
 | `.agents/TEST_COVERAGE_ANALYSIS.adoc` | Suivi couverture de tests (etape 5) | LAZY
-| `.agents/PLUGIN_DEVELOPER.adoc` | Agent PLUGIN DEVELOPER — dev plugins Gradle | LAZY
-| `.agents/BACKLOG_MANAGER.adoc` | Agent BACKLOG MANAGER — planification | LAZY
+| `.agents/PLUGIN_DEVELOPER.adoc` | Agent PLUGIN DEVELOPER | LAZY
+| `.agents/BACKLOG_MANAGER.adoc` | Agent BACKLOG MANAGER | LAZY
 | `.agents/sessions/` | Archives par session | LAZY
 | `.agents/archives/` | Archives mensuelles (COMPLETED_TASKS) | LAZY
 | `.agents/encyclopedies/` | Connaissance thematique froide (COLD) | COLD
@@ -191,19 +173,9 @@ Projets gerant la meme methodologie opencode (EAGER/LAZY, procedure de fin de se
 |===
 | Projet | Repertoire | Session en cours | Etape 5 specifique | Derniere MAJ
 | magic-stick | `~/workspace/foundry/OSS/magic-stick` | 037 | SCRIPT_VERIFICATION.adoc | 2026-04-28
-| bakery-gradle | `~/workspace/foundry/OSS/bakery-gradle/bakery-plugin` | 11 | TEST_COVERAGE_ANALYSIS.adoc | 2026-04-27
+| bakery-gradle | `~/workspace/foundry/public/bakery-gradle/bakery-plugin` | 110 | TEST_COVERAGE_ANALYSIS.adoc | 2026-06-11
 | cheroliv.com | `~/workspace/foundry/OSS/cheroliv.com` | 10 | TEST_COVERAGE_ANALYSIS.adoc | 2026-04-27
-| plantuml-gradle | `~/workspace/foundry/OSS/plantuml-gradle/plantuml-plugin` | 133 | TEST_COVERAGE_ANALYSIS.adoc | 2026-04-27
+| plantuml-gradle | `~/workspace/foundry/OSS/plantuml-gradle/plantuml-plugin` | 148 | TEST_COVERAGE_ANALYSIS.adoc | 2026-06-11
 | quizz-benchmark-gradle | `~/workspace/foundry/OSS/quizz-benchmark-gradle` | - | TEST_COVERAGE_ANALYSIS.adoc | 2026-04-27
-| **jhipster-gradle-plugins** | `~/workspace/foundry/OSS/jhipster-gradle-plugins` | **5** | TEST_COVERAGE_ANALYSIS.adoc | **2026-05-01**
+| **jhipster-gradle-plugins** | `~/workspace/foundry/public/jhipster-gradle-plugins` | **9** | TEST_COVERAGE_ANALYSIS.adoc | **2026-06-11**
 |===
-
-_Procedure de fin de session commune_ :
-
-. ✅ Creer l'archive `.agents/sessions/{N}-{titre}.adoc`
-. ✅ Mettre a jour `PROMPT_REPRISE.adoc` pour la session N+1
-. ✅ Mettre a jour `SESSIONS_HISTORY.adoc` avec la session N
-. ✅ Mettre a jour `INDEX.adoc` (session en cours, roadmap, fichiers)
-. ✅ Mettre a jour `TEST_COVERAGE_ANALYSIS.adoc` (si tests ajoutes/modifies)
-. ✅ Mettre a jour `COMPLETED_TASKS_ARCHIVE_{mois}.adoc`
-| 007 | 2026-05-07 | chore | Migration chemins foundry/ → foundry/OSS/ dans INDEX.adoc — granularisation OSS/CSS | —

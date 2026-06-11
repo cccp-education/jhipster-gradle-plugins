@@ -1,0 +1,52 @@
+= Session 008 — Publication Maven Central
+:date: 2026-06-11
+:status: ✅ TERMINÉE
+
+== Contexte
+
+Publication des deux plugins jhipster-gradle-plugins sur Maven Central via nmcp.
+VAGUE 4.7 — Philly.
+
+== Changements réalisés
+
+=== Root
+* [x] `build.gradle.kts` : root désactivé (readme:0.0.0 bloquait le build)
+* [x] `settings.gradle.kts` : ajout plugin `com.gradleup.nmcp.settings` 1.5.0 +
+  `nmcpSettings { centralPortal { username/password depuis ~/.gradle/gradle.properties, publishingType = "AUTOMATIC" } }`
+
+=== Persistence plugin
+* [x] POM sans guard — `withType<MavenPublication>` (nom, description, licence Apache 2.0, developer cccp-education, SCM)
+* [x] Migration Sonatype staging → nmcp : `repositories { mavenCentral() }`
+* [x] `signing { useGpgCmd() }`
+
+=== Assistant plugin
+* [x] Version `0.1.0-SNAPSHOT` → `0.1.0`
+* [x] Plugin ID `dev.jhipster.assistant` → `education.cccp.jhipster.assistant`
+* [x] Ajout `publishing { publications { withType<MavenPublication> { ... } } }` — POM complet
+  (nom, description, licence Apache 2.0, developer cccp-education, SCM)
+* [x] Ajout `signing { useGpgCmd() }`
+* [x] Migration Sonatype staging → nmcp : `repositories { mavenCentral() }`
+
+== Publication
+
+Persistence publié en premier, puis assistant.
+`./gradlew publishAggregationToCentralPortal --no-daemon` — ✅ succès
+
+Artifacts :
+- `education.cccp:jhipster-persistence:0.0.1` sur Maven Central
+- `education.cccp:jhipster-assistant:0.1.0` sur Maven Central
+
+== Fichiers modifiés
+
+* `build.gradle.kts` (root) — désactivé readme:0.0.0
+* `settings.gradle.kts` — nmcp plugin + nmcpSettings
+* `persistence/build.gradle.kts` — POM complet, nmcp, signing
+* `assistant/build.gradle.kts` — version 0.1.0, plugin ID, POM complet, nmcp, signing
+
+== Score
+
+9/10
+
+== Prochaine session (009)
+
+À définir — Assistant EPIC 2 RAG pgvector, EPIC 3 Multi-provider LLM.
