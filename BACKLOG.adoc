@@ -1,80 +1,38 @@
 = BACKLOG — JHipster Gradle Plugins (Philly)
 :sectnums:
-
-== EPIC 1 : Initialisation gouvernance et structure multi-module
-
-*Statut* : A FAIRE
-*Priorite* : P0
-
-*Sous-taches* :
-
-* [ ] Creer BACKLOG.adoc (ce fichier)
-* [ ] Verifier structure multi-module (persistence + assistant)
-* [ ] Mettre a jour le portefeuille transverse
-
-== EPIC 2 : Persistence Plugin — Publication Maven Central
-
-*Statut* : A FAIRE
-*Priorite* : P0
-
-*Sous-taches* :
-
-* [ ] Verifier build.gradle.kts (group, version, Sonatype, signing)
-* [ ] Publier persistence-plugin sur Maven Central
-
-== EPIC 3 : Assistant Plugin — Publication Maven Central
-
-*Statut* : A FAIRE
-*Priorite* : P0
-
-*Sous-taches* :
-
-* [ ] Verifier build.gradle.kts (group, version, Sonatype, signing)
-* [ ] Publier assistant-plugin sur Maven Central
+:last_update: 2026-06-13 (Session 8 — Publication Maven Central)
 
 '''
 
-== EPIC PUB — Publication Maven Central + Plugin Portal
+== EPICs Terminés
 
-_Source : configuration/EPIC_PUB.adoc (Session 096)_
+=== EPIC 1 : Initialisation gouvernance et structure multi-module ✅
+* [x] BACKLOG créé
+* [x] Structure multi-module (persistence + assistant)
+* [x] Portefeuille transverse mis à jour
+* [x] .agents/ gouvernance complète
 
-=== PUB-2.2 — Mettre a jour le commentaire relocation
+=== EPIC 2 : Persistence Plugin — Publication Maven Central ✅
+* [x] persistence:0.0.1 publié sur Maven Central via nmcp
+* [x] POM complet (license Apache 2.0, SCM, developer)
 
-Dans le `build.gradle.kts`, remplacer :
-```kotlin
-// RELOCATION : prepare la migration du groupId education.cccp →
-// <futur-domaine>. Activer avec -Prem relocationGroup="io.github.cccp-education"
-// Effet : injecte <distributionManagement><relocation><groupId>...</groupId></relocation>
-// dans le POM publie. Les consommateurs existants seront rediriges automatiquement
-// vers le nouveau groupId lors de la prochaine maj de dependance.
-```
-Par :
-```kotlin
-// RELOCATION : garde comme echappatoire future.
-// Activable avec -Prem relocationGroup="<futur-namespace>"
-```
+=== EPIC 3 : Assistant Plugin — Fonctionnalités de base ✅
+* [x] JHipsterAssistantPlugin créé
+* [x] assistant:0.1.0 publié sur Maven Central
+* [x] Plugin ID fix education.cccp.jhipster.assistant
 
-=== PUB-3.18 — jhipster-persistence
+=== EPIC 4-6 : Tests, fonctionnalités, cleanups ✅
+* [x] Tests GradleTestKit fonctionnels
+* [x] Boundary persistence strict (pas de dépendance lourde)
+* [x] Tests de compilation et d'intégration
 
-*Artefact* : `education.cccp.jhipster.persistence`
+=== EPIC PUB : Publication Maven Central ✅
+* [x] persistence:0.0.1 + assistant:0.1.0 publiés
+* [x] Migration nmcp (Central Portal)
+* [x] Ancien plugin com.cheroliv déprécié
 
-```bash
-cd foundry/public/jhipster-gradle-plugins && ./gradlew :persistence:publish closeAndRelease
-```
+'''
 
-=== PUB-3.19 — jhipster-assistant
+== Prochain EPIC
 
-*Artefact* : `education.cccp.jhipster.assistant`
-
-```bash
-cd foundry/public/jhipster-gradle-plugins && ./gradlew :assistant:publish closeAndRelease
-```
-
-=== PUB-5.18 — Verification
-
-.Verification Maven Central
-
-| Artefact | URL |
-|---|---|
-| jhipster-persistence | https://central.sonatype.com/artifact/education.cccp/jhipster-persistence |
-| jhipster-assistant | https://central.sonatype.com/artifact/education.cccp/jhipster-assistant |
+Aucun — borough liquidé. Tous les EPICs terminés.

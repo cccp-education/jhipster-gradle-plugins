@@ -1,0 +1,9 @@
+= Rapport — Session 9 — Mise à jour BACKLOG
+:session: 9
+:date: 2026-06-13
+:type: maintenance
+
+== Modifications
+- BACKLOG.adoc corrigé (marquait tout A FAIRE alors que tout est terminé)
+- EPIC 1→PUB marqués ✅
+- Borough liquidé confirmé
