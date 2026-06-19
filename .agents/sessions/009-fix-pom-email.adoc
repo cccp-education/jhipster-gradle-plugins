@@ -1,0 +1,18 @@
+= Session 009 — Fix POM developer email
+:date: 2026-06-19
+:type: fix
+:score: 9/10
+
+== Résumé
+
+Correction de l'email du développeur dans les POM Maven :
+cccp.education@gmail.com → cccp.edu@gmail.com
+
+== Modifications
+
+- persistence/build.gradle.kts : email developer
+- assistant/build.gradle.kts : email developer
+
+== Prochaine session
+
+010 — À définir

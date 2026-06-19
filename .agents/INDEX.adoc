@@ -3,8 +3,8 @@
 _Regles absolues_ : voir `AGENT.adoc` section "Regles Absolues"
 
 _Derniere mise a jour_ : 2026-06-11
-_Session en cours_ : 9 — À définir
-_Session terminee_ : 8 — Publication Maven Central (persistence + assistant)
+_Session en cours_ : 10 — À définir
+_Session terminee_ : 9 — Fix POM developer email (cccp.education@gmail.com → cccp.edu@gmail.com)
 
 _Localisation active_ : `.agents/INDEX.adoc` (sessions recentes), `.agents/SESSIONS_HISTORY.adoc` (historique), `.agents/sessions/` (archives)
 
