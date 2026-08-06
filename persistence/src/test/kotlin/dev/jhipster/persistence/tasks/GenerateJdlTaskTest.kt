@@ -184,7 +184,7 @@ class GenerateJdlTaskTest {
         task.patchBuildGradle(projectDir)
 
         val updated = projectDir.resolve("build.gradle").readText()
-        assertTrue("jvmToolchain(24)" in updated)
+        assertTrue("jvmToolchain(25)" in updated)
         assertTrue("-Xjsr305=strict" in updated)
         assertTrue("kotlin.compilerOptions" in updated)
     }
@@ -194,7 +194,7 @@ class GenerateJdlTaskTest {
         projectDir.resolve("build.gradle").writeText("""
             plugins { id("kotlin") }
             // jhipster-persistence: jvmToolchain
-            kotlin.jvmToolchain(24)
+            kotlin.jvmToolchain(25)
         """.trimIndent())
 
         val before = projectDir.resolve("build.gradle").readText()
@@ -241,7 +241,7 @@ class GenerateJdlTaskTest {
         task.configureKotlin(projectDir, "2.3.20")
 
         assertTrue("kotlin = \"2.3.20\"" in gradleDir.resolve("libs.versions.toml").readText())
-        assertTrue("jvmToolchain(24)" in projectDir.resolve("build.gradle").readText())
+        assertTrue("jvmToolchain(25)" in projectDir.resolve("build.gradle").readText())
         assertTrue("kotlin-gradle-plugin:2.3.20" in projectDir.resolve("buildSrc/build.gradle").readText())
     }
 }

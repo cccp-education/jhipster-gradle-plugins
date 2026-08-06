@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 /**
  * Convention plugin pour les sous-projets publiant un plugin Gradle.
  *
- * Cible Java 24+ — les consommateurs du plugin doivent utiliser Java 24 minimum.
+ * Cible Java 25+ — les consommateurs du plugin doivent utiliser Java 25 minimum.
  *
  * Note : `kotlin-dsl` est appliqué par buildSrc/build.gradle.kts sur buildSrc
  * lui-même, ce qui rend le compilateur Kotlin disponible ici.
@@ -21,15 +21,15 @@ group = "education.cccp"
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_24
+        jvmTarget = JvmTarget.JVM_25
         freeCompilerArgs.addAll("-Xjsr305=strict")
     }
-    jvmToolchain(24)
+    jvmToolchain(25)
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_24
-    targetCompatibility = JavaVersion.VERSION_24
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
     withSourcesJar()
     withJavadocJar()
 }
