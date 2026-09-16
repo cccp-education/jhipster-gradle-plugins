@@ -148,7 +148,7 @@ _Structure obligatoire_ (max 70 lignes) :
 
 == Regles
 
-* ❌ Pas de commit sans permission
+* ✅ Git autorisé (décision pilote 2026-09-17) — zéro secret commité
 * ✅ 1 fichier a la fois, validation immediate
 * ❌ Pas de tests en fin de session
 ----

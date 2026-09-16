@@ -18,4 +18,4 @@ Les deux publiés séparément sur Maven Central ✅
 - **persistence** : `education.cccp:jhipster-persistence:0.0.1` (Maven Central)
 - **assistant** : `education.cccp:jhipster-assistant:0.1.0` (Maven Central)
 - Boundary : persistence = lightweight (pas de LangChain4j/Docker/pgvector)
-- ZERO commit/push sans permission explicite
+- Git autorisé (décision pilote 2026-09-17).

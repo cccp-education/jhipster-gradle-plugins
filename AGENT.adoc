@@ -72,12 +72,11 @@ tirer LangChain4j ou Docker. `assistant` isole toutes les dependances lourdes (R
 ./gradlew :assistant:check
 ----
 
-=== 1. COMMITS/GIT
+===  COMMITS/GIT — AUTORISÉ (décision 2026-09-17)
 
-**INTERDICTION FORMELLE** de commit/push/merge sans permission explicite de l'utilisateur.
+* Commit/push/merge autorisés (décision pilote 2026-09-17 — suppression de l'interdiction formelle). Ne JAMAIS commiter de secret.
 
 * ✅ _Autorise_ : `git status`, `git diff`, `git log`, `git show` (lecture seule)
-* ❌ _Interdit_ : `git add`, `git commit`, `git push`, `git merge`, `git rebase` (sauf ordre explicite)
 
 _Procedure obligatoire avant tout commit_ :
 . Montrer les modifications (`git diff --stat`)

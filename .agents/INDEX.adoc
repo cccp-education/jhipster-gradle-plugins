@@ -26,7 +26,7 @@ Ne JAMAIS ajouter de dependance lourde dans `persistence/build.gradle.kts`. Le b
 
 === 1. COMMITS/GIT
 
-_L'agent NE DOIT JAMAIS_ executer de commit, push, merge, ou toute commande git modifiant l'historique _SANS permission explicite de l'utilisateur_.
+* Commit/push/merge autorisés (décision pilote 2026-09-17). Ne JAMAIS commiter de secret.
 
 * ✅ _Autorise_ : `git status`, `git diff`, `git log`, `git show` (lecture seule)
 * ❌ _Interdit_ : `git add`, `git commit`, `git push`, `git merge`, `git rebase` (sauf ordre explicite)
