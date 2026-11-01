@@ -30,7 +30,6 @@ import java.io.File
  */
 @DisableCachingByDefault(because = "Génération JHipster — résultat non déterministe, dépend de l'état du système")
 abstract class GenerateJdlTask : DefaultTask() {
-
     @get:InputDirectory
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val targetProjectDir: DirectoryProperty
@@ -48,9 +47,9 @@ abstract class GenerateJdlTask : DefaultTask() {
     @TaskAction
     fun generate() {
         val projectDir = targetProjectDir.get().asFile
-        val jdl        = jdlFile.get().asFile
-        val nodeAlias  = nvmAlias.getOrElse("lts/jod")
-        val kotlin     = kotlinVersion.getOrElse("2.3.20")
+        val jdl = jdlFile.get().asFile
+        val nodeAlias = nvmAlias.getOrElse("lts/jod")
+        val kotlin = kotlinVersion.getOrElse("2.3.20")
 
         logger.lifecycle("=== generateJdl : ${jdl.name} → ${projectDir.name} ===")
         logger.lifecycle("  Node : $nodeAlias | Kotlin cible : $kotlin")
@@ -64,12 +63,18 @@ abstract class GenerateJdlTask : DefaultTask() {
         logger.lifecycle("✓ generateJdl terminé")
     }
 
-    internal fun validateInputs(projectDir: File, jdl: File) {
+    internal fun validateInputs(
+        projectDir: File,
+        jdl: File,
+    ) {
         require(jdl.exists()) { "Fichier JDL introuvable : ${jdl.absolutePath}" }
         projectDir.mkdirs()
     }
 
-    internal fun ensureJdlInTarget(jdl: File, projectDir: File) {
+    internal fun ensureJdlInTarget(
+        jdl: File,
+        projectDir: File,
+    ) {
         val localJdl = projectDir.resolve(jdl.name)
         if (localJdl.canonicalPath != jdl.canonicalPath) {
             jdl.copyTo(localJdl, overwrite = true)
@@ -77,23 +82,36 @@ abstract class GenerateJdlTask : DefaultTask() {
         }
     }
 
-    private fun runJHipster(projectDir: File, jdlName: String, nodeAlias: String) {
+    private fun runJHipster(
+        projectDir: File,
+        jdlName: String,
+        nodeAlias: String,
+    ) {
         logger.lifecycle("  → jhipster jdl $jdlName --force  (Node $nodeAlias)")
-        val script = """
+        val script =
+            """
             export NVM_DIR="${'$'}HOME/.nvm"
             [ -s "${'$'}NVM_DIR/nvm.sh" ] && \. "${'$'}NVM_DIR/nvm.sh"
             nvm use $nodeAlias || { echo "ERREUR : nvm alias '$nodeAlias' introuvable"; exit 1; }
             jhipster jdl $jdlName --force
-        """.trimIndent()
+            """.trimIndent()
         runBash(script, projectDir, "JHipster JDL generation")
         logger.lifecycle("  ✓ Génération JHipster terminée")
     }
 
     @get:Internal
-    internal val gitignoreEntries = listOf(
-        ".goose", "README.pdf", "README.html", "README.docx", "README.epub",
-        "README.fr.pdf", "README.fr.html", "README.fr.docx", "README.fr.epub"
-    )
+    internal val gitignoreEntries =
+        listOf(
+            ".goose",
+            "README.pdf",
+            "README.html",
+            "README.docx",
+            "README.epub",
+            "README.fr.pdf",
+            "README.fr.html",
+            "README.fr.docx",
+            "README.fr.epub",
+        )
 
     internal fun applyGitignoreEntries(projectDir: File) {
         val gitignore = projectDir.resolve(".gitignore")
@@ -107,15 +125,20 @@ abstract class GenerateJdlTask : DefaultTask() {
             logger.lifecycle("  ✓ .gitignore déjà à jour")
             return
         }
-        gitignore.appendText(buildString {
-            appendLine()
-            appendLine("# jhipster-persistence-plugin")
-            toAppend.forEach { appendLine(it) }
-        })
+        gitignore.appendText(
+            buildString {
+                appendLine()
+                appendLine("# jhipster-persistence-plugin")
+                toAppend.forEach { appendLine(it) }
+            },
+        )
         logger.lifecycle("  ✓ .gitignore mis à jour (+${toAppend.size} entrées)")
     }
 
-    internal fun configureKotlin(projectDir: File, kotlinVersion: String) {
+    internal fun configureKotlin(
+        projectDir: File,
+        kotlinVersion: String,
+    ) {
         logger.lifecycle("  → Configuration Kotlin $kotlinVersion")
         patchLibsVersionsToml(projectDir, kotlinVersion)
         patchBuildGradle(projectDir)
@@ -123,14 +146,18 @@ abstract class GenerateJdlTask : DefaultTask() {
         logger.lifecycle("  ✓ Kotlin $kotlinVersion configuré")
     }
 
-    internal fun patchLibsVersionsToml(projectDir: File, kotlinVersion: String) {
+    internal fun patchLibsVersionsToml(
+        projectDir: File,
+        kotlinVersion: String,
+    ) {
         val toml = projectDir.resolve("gradle/libs.versions.toml")
         if (!toml.exists()) return
         val original = toml.readText()
-        val updated  = original.replace(
-            Regex("""(kotlin\s*=\s*)"[^"]+""""),
-            """${'$'}1"$kotlinVersion""""
-        )
+        val updated =
+            original.replace(
+                Regex("""(kotlin\s*=\s*)"[^"]+""""),
+                """${'$'}1"$kotlinVersion"""",
+            )
         if (updated != original) {
             toml.writeText(updated)
             logger.lifecycle("    ✓ libs.versions.toml : kotlin → $kotlinVersion")
@@ -140,37 +167,48 @@ abstract class GenerateJdlTask : DefaultTask() {
     internal fun patchBuildGradle(projectDir: File) {
         val buildGradle = projectDir.resolve("build.gradle")
         if (!buildGradle.exists()) return
-        val marker  = "// jhipster-persistence: jvmToolchain"
+        val marker = "// jhipster-persistence: jvmToolchain"
         val content = buildGradle.readText()
         if (marker in content) return
-        buildGradle.appendText("""
+        buildGradle.appendText(
+            """
 
 $marker
 kotlin.jvmToolchain(25)
 kotlin.compilerOptions.freeCompilerArgs.addAll("-Xjsr305=strict")
-""")
+""",
+        )
         logger.lifecycle("    ✓ build.gradle : jvmToolchain(25) injecté")
     }
 
-    internal fun patchBuildSrc(projectDir: File, kotlinVersion: String) {
+    internal fun patchBuildSrc(
+        projectDir: File,
+        kotlinVersion: String,
+    ) {
         val buildSrc = projectDir.resolve("buildSrc/build.gradle")
         if (!buildSrc.exists()) return
         val content = buildSrc.readText()
-        val updated = content.replace(
-            Regex("""(kotlin-gradle-plugin:)\d+\.\d+\.\d+"""),
-            "${'$'}1$kotlinVersion"
-        )
+        val updated =
+            content.replace(
+                Regex("""(kotlin-gradle-plugin:)\d+\.\d+\.\d+"""),
+                "${'$'}1$kotlinVersion",
+            )
         if (updated != content) {
             buildSrc.writeText(updated)
             logger.lifecycle("    ✓ buildSrc/build.gradle : kotlin-gradle-plugin → $kotlinVersion")
         }
     }
 
-    private fun runBash(script: String, workDir: File, stepName: String) {
-        val process = ProcessBuilder("bash", "-c", script)
-            .directory(workDir)
-            .inheritIO()
-            .start()
+    private fun runBash(
+        script: String,
+        workDir: File,
+        stepName: String,
+    ) {
+        val process =
+            ProcessBuilder("bash", "-c", script)
+                .directory(workDir)
+                .inheritIO()
+                .start()
         val exit = process.waitFor()
         if (exit != 0) error("[$stepName] a échoué avec le code de sortie $exit")
     }

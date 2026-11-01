@@ -43,13 +43,12 @@ import java.io.File
  * | `dev`           | `dockerDb` + `bootRun` dans le projet cible              |
  */
 class JHipsterPersistencePlugin : Plugin<Project> {
-
     override fun apply(project: Project) {
-        val targetDir   = resolveJHipsterProject(project)
+        val targetDir = resolveJHipsterProject(project)
         val conventions = ProjectConventions(targetDir)
 
         project.logger.lifecycle(
-            "[jhipster-persistence] Projet cible : ${targetDir.absolutePath}"
+            "[jhipster-persistence] Projet cible : ${targetDir.absolutePath}",
         )
 
         registerTasks(project, targetDir, conventions)
@@ -65,27 +64,32 @@ class JHipsterPersistencePlugin : Plugin<Project> {
      * Priorité 3 : erreur explicite
      */
     private fun resolveJHipsterProject(project: Project): File {
-        val parentDir     = project.projectDir.parentFile
-            ?: error(
-                "[jhipster-persistence] Aucun dossier parent trouvé. " +
-                        "Le workspace doit être dans un dossier contenant le projet JHipster."
-            )
+        val parentDir =
+            project.projectDir.parentFile
+                ?: error(
+                    "[jhipster-persistence] Aucun dossier parent trouvé. " +
+                        "Le workspace doit être dans un dossier contenant le projet JHipster.",
+                )
         val workspaceName = project.projectDir.name
 
-        return parentDir.listFiles { f ->
-            f.isDirectory &&
+        return parentDir
+            .listFiles { f ->
+                f.isDirectory &&
                     f.name != workspaceName &&
                     f.resolve(".yo-rc.json").exists()
-        }?.firstOrNull()
-            ?: parentDir.listFiles { f ->
-                f.isDirectory &&
-                        f.name != workspaceName &&
-                        (f.resolve("build.gradle").exists() ||
-                                f.resolve("build.gradle.kts").exists())
             }?.firstOrNull()
+            ?: parentDir
+                .listFiles { f ->
+                    f.isDirectory &&
+                        f.name != workspaceName &&
+                        (
+                            f.resolve("build.gradle").exists() ||
+                                f.resolve("build.gradle.kts").exists()
+                        )
+                }?.firstOrNull()
             ?: error(
                 "[jhipster-persistence] Aucun projet JHipster trouvé dans '$parentDir'.\n" +
-                        "Le projet cible doit contenir un fichier '.yo-rc.json'."
+                    "Le projet cible doit contenir un fichier '.yo-rc.json'.",
             )
     }
 
@@ -96,57 +100,60 @@ class JHipsterPersistencePlugin : Plugin<Project> {
         targetDir: File,
         conv: ProjectConventions,
     ) {
-        val cleanTask = project.tasks.register(
-            "cleanCodebase",
-            CleanCodebaseTask::class.java
-        ) {
-            it.group            = GROUP
-            it.description      = "Supprime les répertoires et fichiers générés par JHipster"
-            it.targetProjectDir.set(targetDir)
-        }
+        val cleanTask =
+            project.tasks.register(
+                "cleanCodebase",
+                CleanCodebaseTask::class.java,
+            ) {
+                it.group = GROUP
+                it.description = "Supprime les répertoires et fichiers générés par JHipster"
+                it.targetProjectDir.set(targetDir)
+            }
 
-        val generateTask = project.tasks.register(
-            "generateJdl",
-            GenerateJdlTask::class.java
-        ) {
-            it.group            = GROUP
-            it.description      = "Régénère depuis ${conv.jdlFile.name} via jhipster jdl --force"
-            it.targetProjectDir.set(targetDir)
-            it.jdlFile.set(conv.jdlFile)
-            it.nvmAlias.set(NVM_ALIAS)
-            it.kotlinVersion.set(KOTLIN_VERSION)
-            // mustRunAfter déclaré ici — dans le contexte de configuration de la tâche
-            it.mustRunAfter(cleanTask)
-        }
+        val generateTask =
+            project.tasks.register(
+                "generateJdl",
+                GenerateJdlTask::class.java,
+            ) {
+                it.group = GROUP
+                it.description = "Régénère depuis ${conv.jdlFile.name} via jhipster jdl --force"
+                it.targetProjectDir.set(targetDir)
+                it.jdlFile.set(conv.jdlFile)
+                it.nvmAlias.set(NVM_ALIAS)
+                it.kotlinVersion.set(KOTLIN_VERSION)
+                // mustRunAfter déclaré ici — dans le contexte de configuration de la tâche
+                it.mustRunAfter(cleanTask)
+            }
 
-        val syncTask = project.tasks.register(
-            "syncCodebase",
-            SyncCodebaseTask::class.java
-        ) {
-            it.group            = GROUP
-            it.description      = "Synchronise __codebase__/ → projet JHipster (rsync ou Java natif)"
-            it.codebaseDir.set(conv.codebaseDir)
-            it.targetProjectDir.set(targetDir)
-            // mustRunAfter déclaré ici — dans le contexte de configuration de la tâche
-            it.mustRunAfter(generateTask)
-        }
+        val syncTask =
+            project.tasks.register(
+                "syncCodebase",
+                SyncCodebaseTask::class.java,
+            ) {
+                it.group = GROUP
+                it.description = "Synchronise __codebase__/ → projet JHipster (rsync ou Java natif)"
+                it.codebaseDir.set(conv.codebaseDir)
+                it.targetProjectDir.set(targetDir)
+                // mustRunAfter déclaré ici — dans le contexte de configuration de la tâche
+                it.mustRunAfter(generateTask)
+            }
 
         project.tasks.register("dockerUp", DockerTask::class.java) {
-            it.group       = GROUP
+            it.group = GROUP
             it.description = "docker compose up -d (stack complète)"
             it.dockerDir.set(conv.dockerDir)
             it.mode.set(DockerTask.Mode.UP_ALL)
         }
 
         project.tasks.register("dockerDown", DockerTask::class.java) {
-            it.group       = GROUP
+            it.group = GROUP
             it.description = "docker compose down"
             it.dockerDir.set(conv.dockerDir)
             it.mode.set(DockerTask.Mode.DOWN)
         }
 
         project.tasks.register("dockerDb", DockerTask::class.java) {
-            it.group       = GROUP
+            it.group = GROUP
             it.description = "docker compose up -d PostgreSQL (convention : postgresql.yml)"
             it.dockerDir.set(conv.dockerDir)
             it.mode.set(DockerTask.Mode.UP_DB)
@@ -155,32 +162,33 @@ class JHipsterPersistencePlugin : Plugin<Project> {
         // Pipeline : clean → generate → sync
         // L'ordre est garanti par mustRunAfter dans chaque tâche ci-dessus
         project.tasks.register("regenerate") {
-            it.group       = GROUP
+            it.group = GROUP
             it.description = "Pipeline complet : cleanCodebase → generateJdl → syncCodebase"
             it.dependsOn(cleanTask, generateTask, syncTask)
         }
 
         project.tasks.register("dev") {
-            it.group       = GROUP
+            it.group = GROUP
             it.description = "Mode développement : dockerDb + bootRun dans le projet cible"
             it.dependsOn(project.tasks.named("dockerDb"))
             it.doLast {
                 project.logger.lifecycle(
-                    "[jhipster-persistence] Lancement de bootRun dans ${targetDir.name}…"
+                    "[jhipster-persistence] Lancement de bootRun dans ${targetDir.name}…",
                 )
-                val exit = ProcessBuilder("bash", "-c", "./gradlew bootRun")
-                    .directory(targetDir)
-                    .inheritIO()
-                    .start()
-                    .waitFor()
+                val exit =
+                    ProcessBuilder("bash", "-c", "./gradlew bootRun")
+                        .directory(targetDir)
+                        .inheritIO()
+                        .start()
+                        .waitFor()
                 if (exit != 0) error("bootRun a échoué (code de sortie : $exit)")
             }
         }
     }
 
     companion object {
-        const val GROUP          = "jhipster-persistence"
-        const val NVM_ALIAS      = "lts/jod"
+        const val GROUP = "jhipster-persistence"
+        const val NVM_ALIAS = "lts/jod"
         const val KOTLIN_VERSION = "2.3.20"
     }
 }

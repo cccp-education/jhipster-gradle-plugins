@@ -11,7 +11,6 @@ import org.junit.jupiter.api.io.TempDir
 import java.io.File
 
 class DockerTaskTest {
-
     @TempDir
     lateinit var parentDir: File
 
@@ -33,9 +32,11 @@ class DockerTaskTest {
     fun `dockerUp task expose le bon mode`() {
         dockerDir.resolve("docker-compose.yml").createNewFile()
 
-        val project = ProjectBuilder.builder()
-            .withProjectDir(parentDir.resolve("workspace"))
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(parentDir.resolve("workspace"))
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         val task = project.tasks.getByName("dockerUp") as DockerTask
 
@@ -44,9 +45,11 @@ class DockerTaskTest {
 
     @Test
     fun `dockerDown task expose le bon mode`() {
-        val project = ProjectBuilder.builder()
-            .withProjectDir(parentDir.resolve("workspace"))
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(parentDir.resolve("workspace"))
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         val task = project.tasks.getByName("dockerDown") as DockerTask
 
@@ -55,9 +58,11 @@ class DockerTaskTest {
 
     @Test
     fun `dockerDb task expose le bon mode`() {
-        val project = ProjectBuilder.builder()
-            .withProjectDir(parentDir.resolve("workspace"))
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(parentDir.resolve("workspace"))
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         val task = project.tasks.getByName("dockerDb") as DockerTask
 
@@ -78,9 +83,11 @@ class DockerTaskTest {
         dockerDir.resolve("docker-compose.yml").createNewFile()
         dockerDir.resolve("app.yml").createNewFile()
 
-        val project = ProjectBuilder.builder()
-            .withProjectDir(parentDir.resolve("workspace"))
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(parentDir.resolve("workspace"))
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         val task = project.tasks.getByName("dockerUp") as DockerTask
 
@@ -93,9 +100,11 @@ class DockerTaskTest {
     fun `composeFileFor trouve app_yml si docker-compose_yml est absent`() {
         dockerDir.resolve("app.yml").createNewFile()
 
-        val project = ProjectBuilder.builder()
-            .withProjectDir(parentDir.resolve("workspace"))
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(parentDir.resolve("workspace"))
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         val task = project.tasks.getByName("dockerUp") as DockerTask
 
@@ -106,9 +115,11 @@ class DockerTaskTest {
 
     @Test
     fun `composeFileFor retourne null si aucun fichier n'est trouvé`() {
-        val project = ProjectBuilder.builder()
-            .withProjectDir(parentDir.resolve("workspace"))
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(parentDir.resolve("workspace"))
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         val task = project.tasks.getByName("dockerUp") as DockerTask
 
@@ -120,9 +131,11 @@ class DockerTaskTest {
     fun `execute ne plante pas si le répertoire docker est absent`() {
         val emptyDockerDir = parentDir.resolve("nonexistent-docker")
 
-        val project = ProjectBuilder.builder()
-            .withProjectDir(parentDir.resolve("workspace"))
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(parentDir.resolve("workspace"))
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         val task = project.tasks.getByName("dockerUp") as DockerTask
         task.dockerDir.set(emptyDockerDir)
@@ -132,9 +145,11 @@ class DockerTaskTest {
 
     @Test
     fun `up ne plante pas sans fichier compose`() {
-        val project = ProjectBuilder.builder()
-            .withProjectDir(parentDir.resolve("workspace"))
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(parentDir.resolve("workspace"))
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         val task = project.tasks.getByName("dockerUp") as DockerTask
 
@@ -143,9 +158,11 @@ class DockerTaskTest {
 
     @Test
     fun `dockerDir est résolu par défaut`() {
-        val project = ProjectBuilder.builder()
-            .withProjectDir(parentDir.resolve("workspace"))
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(parentDir.resolve("workspace"))
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         val task = project.tasks.getByName("dockerUp") as DockerTask
 

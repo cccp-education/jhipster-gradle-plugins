@@ -30,7 +30,6 @@ import java.io.File
  */
 @DisableCachingByDefault(because = "Synchronisation de fichiers — dépend de l'état externe de __codebase__/")
 abstract class SyncCodebaseTask : DefaultTask() {
-
     @get:InputDirectory
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val codebaseDir: DirectoryProperty
@@ -42,16 +41,17 @@ abstract class SyncCodebaseTask : DefaultTask() {
     private data class SyncEntry(
         val sourcePath: String,
         val destPath: String?,
-        val isFile: Boolean
+        val isFile: Boolean,
     )
 
-    private val syncManifest = listOf(
-        SyncEntry("build.gradle", null,      isFile = true),
-        SyncEntry("gradle",       "gradle",  isFile = false),
-        SyncEntry("src",          "src",     isFile = false),
-        SyncEntry(".github",      ".github", isFile = false),
-        SyncEntry("buildSrc",     "buildSrc",isFile = false)
-    )
+    private val syncManifest =
+        listOf(
+            SyncEntry("build.gradle", null, isFile = true),
+            SyncEntry("gradle", "gradle", isFile = false),
+            SyncEntry("src", "src", isFile = false),
+            SyncEntry(".github", ".github", isFile = false),
+            SyncEntry("buildSrc", "buildSrc", isFile = false),
+        )
 
     @TaskAction
     fun sync() {
@@ -60,7 +60,7 @@ abstract class SyncCodebaseTask : DefaultTask() {
 
         require(source.exists()) {
             "[syncCodebase] Répertoire __codebase__ introuvable : ${source.absolutePath}. " +
-                    "Vérifiez que le code métier a bien été initialisé."
+                "Vérifiez que le code métier a bien été initialisé."
         }
 
         logger.lifecycle("=== syncCodebase : ${source.name} → ${target.name} ===")
@@ -77,8 +77,11 @@ abstract class SyncCodebaseTask : DefaultTask() {
                 logger.lifecycle("  ⚠ Absent de __codebase__ : ${entry.sourcePath} — ignoré")
                 return@forEach
             }
-            if (useRsync) rsyncEntry(srcPath, target, entry)
-            else          javaCopyEntry(srcPath, target, entry)
+            if (useRsync) {
+                rsyncEntry(srcPath, target, entry)
+            } else {
+                javaCopyEntry(srcPath, target, entry)
+            }
             synced++
         }
 
@@ -95,30 +98,43 @@ abstract class SyncCodebaseTask : DefaultTask() {
         }
     }
 
-    private fun isRsyncAvailable(): Boolean = try {
-        ProcessBuilder("rsync", "--version")
-            .redirectErrorStream(true)
-            .start()
-            .waitFor() == 0
-    } catch (_: Exception) { false }
-
-    private fun rsyncEntry(src: File, target: File, entry: SyncEntry) {
-        val (srcArg, destArg) = if (entry.isFile) {
-            src.absolutePath to "${target.absolutePath}/"
-        } else {
-            "${src.absolutePath}/" to "${target.resolve(entry.destPath!!).absolutePath}/"
+    private fun isRsyncAvailable(): Boolean =
+        try {
+            ProcessBuilder("rsync", "--version")
+                .redirectErrorStream(true)
+                .start()
+                .waitFor() == 0
+        } catch (_: Exception) {
+            false
         }
-        val process = ProcessBuilder("rsync", "-avr", "--delete", srcArg, destArg)
-            .directory(target)
-            .redirectErrorStream(true)
-            .start()
-        val output   = process.inputStream.bufferedReader().readText()
+
+    private fun rsyncEntry(
+        src: File,
+        target: File,
+        entry: SyncEntry,
+    ) {
+        val (srcArg, destArg) =
+            if (entry.isFile) {
+                src.absolutePath to "${target.absolutePath}/"
+            } else {
+                "${src.absolutePath}/" to "${target.resolve(entry.destPath!!).absolutePath}/"
+            }
+        val process =
+            ProcessBuilder("rsync", "-avr", "--delete", srcArg, destArg)
+                .directory(target)
+                .redirectErrorStream(true)
+                .start()
+        val output = process.inputStream.bufferedReader().readText()
         val exitCode = process.waitFor()
         if (exitCode != 0) error("[syncCodebase] rsync a échoué pour '${entry.sourcePath}' (code $exitCode):\n$output")
         logger.lifecycle("  ✓ rsync : ${entry.sourcePath}")
     }
 
-    private fun javaCopyEntry(src: File, target: File, entry: SyncEntry) {
+    private fun javaCopyEntry(
+        src: File,
+        target: File,
+        entry: SyncEntry,
+    ) {
         if (entry.isFile) {
             src.copyTo(target.resolve(src.name), overwrite = true)
         } else {
@@ -126,10 +142,10 @@ abstract class SyncCodebaseTask : DefaultTask() {
             destDir.mkdirs()
             src.walkTopDown().forEach { file ->
                 val relative = file.relativeTo(src)
-                val dest     = destDir.resolve(relative)
+                val dest = destDir.resolve(relative)
                 when {
                     file.isDirectory -> dest.mkdirs()
-                    else             -> file.copyTo(dest, overwrite = true)
+                    else -> file.copyTo(dest, overwrite = true)
                 }
             }
         }

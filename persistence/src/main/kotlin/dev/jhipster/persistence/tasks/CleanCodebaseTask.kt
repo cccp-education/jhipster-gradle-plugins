@@ -17,29 +17,60 @@ import java.io.File
  */
 @DisableCachingByDefault(because = "Tâche de nettoyage — opère sur l'état du système de fichiers externe")
 abstract class CleanCodebaseTask : DefaultTask() {
-
     @get:InputDirectory
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val targetProjectDir: DirectoryProperty
 
-    private val generatedDirs = listOf(
-        ".gradle", "build", ".devcontainer", ".github", ".goose",
-        ".husky", ".jhipster", "buildSrc", "gradle", "node_modules",
-        "src", "webpack", ".vscode"
-    )
+    private val generatedDirs =
+        listOf(
+            ".gradle",
+            "build",
+            ".devcontainer",
+            ".github",
+            ".goose",
+            ".husky",
+            ".jhipster",
+            "buildSrc",
+            "gradle",
+            "node_modules",
+            "src",
+            "webpack",
+            ".vscode",
+        )
 
-    private val generatedFiles = listOf(
-        ".editorconfig", ".gitignore", ".gitattributes",
-        ".lintstagedrc.cjs", ".prettierignore", ".prettierrc",
-        ".yo-rc.json", "build.gradle", "checkstyle.xml",
-        "cypress.config.ts", "cypress-audits.config.ts",
-        "eslint.config.mjs", "gradle.properties", "gradlew",
-        "gradlew.bat", "jest.conf.js", "pnpmw", "pnpmw.cmd",
-        "npmw", "npmw.cmd", "package.json", "package-lock.json",
-        "pnpm-lock.yaml", "postcss.config.js", "README.md",
-        "settings.gradle", "sonar-project.properties",
-        "tsconfig.json", "tsconfig.test.json", "local.properties"
-    )
+    private val generatedFiles =
+        listOf(
+            ".editorconfig",
+            ".gitignore",
+            ".gitattributes",
+            ".lintstagedrc.cjs",
+            ".prettierignore",
+            ".prettierrc",
+            ".yo-rc.json",
+            "build.gradle",
+            "checkstyle.xml",
+            "cypress.config.ts",
+            "cypress-audits.config.ts",
+            "eslint.config.mjs",
+            "gradle.properties",
+            "gradlew",
+            "gradlew.bat",
+            "jest.conf.js",
+            "pnpmw",
+            "pnpmw.cmd",
+            "npmw",
+            "npmw.cmd",
+            "package.json",
+            "package-lock.json",
+            "pnpm-lock.yaml",
+            "postcss.config.js",
+            "README.md",
+            "settings.gradle",
+            "sonar-project.properties",
+            "tsconfig.json",
+            "tsconfig.test.json",
+            "local.properties",
+        )
 
     @TaskAction
     fun clean() {
@@ -48,7 +79,7 @@ abstract class CleanCodebaseTask : DefaultTask() {
         logger.lifecycle("=== cleanCodebase → ${projectDir.name} ===")
 
         var deletedCount = 0
-        deletedCount += deleteEntries(projectDir, generatedDirs,  isDir = true)
+        deletedCount += deleteEntries(projectDir, generatedDirs, isDir = true)
         deletedCount += deleteEntries(projectDir, generatedFiles, isDir = false)
 
         logger.lifecycle("✓ cleanCodebase : $deletedCount entrée(s) supprimée(s)")
@@ -57,14 +88,14 @@ abstract class CleanCodebaseTask : DefaultTask() {
     private fun deleteEntries(
         projectDir: File,
         names: List<String>,
-        isDir: Boolean
+        isDir: Boolean,
     ): Int {
         var count = 0
         names.forEach { name ->
             val entry = projectDir.resolve(name)
             if (!entry.exists()) return@forEach
-            if (isDir  && !entry.isDirectory) return@forEach
-            if (!isDir && !entry.isFile)      return@forEach
+            if (isDir && !entry.isDirectory) return@forEach
+            if (!isDir && !entry.isFile) return@forEach
 
             val deleted = if (isDir) entry.deleteRecursively() else entry.delete()
             if (deleted) {

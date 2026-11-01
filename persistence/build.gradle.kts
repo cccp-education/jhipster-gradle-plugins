@@ -14,6 +14,8 @@ plugins {
 //    alias(libs.plugins.kotlin.jvm)
 //    alias(libs.plugins.publish)
     id("jhipster.gradle-plugin-conventions")
+    // LINT-ADOPT-13 (S-336) — static analysis gate (ktlint in `check`).
+    id("education.cccp.build.lint") version "0.0.7"
 }
 
 group = "education.cccp"
@@ -30,17 +32,18 @@ dependencies {
 
 gradlePlugin {
     website = "https://github.com/cheroliv/jhipster-gradle-plugins"
-    vcsUrl  = "https://github.com/cheroliv/jhipster-gradle-plugins"
+    vcsUrl = "https://github.com/cheroliv/jhipster-gradle-plugins"
     plugins {
         create("jhipsterPersistence") {
             id = "education.cccp.jhipster.persistence"
             implementationClass = "dev.jhipster.persistence.JHipsterPersistencePlugin"
-            displayName         = "JHipster Persistence Plugin"
-            description         = """
+            displayName = "JHipster Persistence Plugin"
+            description =
+                """
                 Orchestrates the JHipster regeneration cycle (clean/generate/sync)
                 without losing the Kotlin business code persisted in __codebase__/.
                 Convention-based resolution — no DSL extension required.
-            """.trimIndent()
+                """.trimIndent()
             tags = listOf("jhipster", "kotlin", "codegen", "persistence")
         }
     }

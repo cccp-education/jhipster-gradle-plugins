@@ -10,7 +10,6 @@ import org.junit.jupiter.api.io.TempDir
 import java.io.File
 
 class GenerateJdlTaskTest {
-
     @TempDir
     lateinit var parentDir: File
 
@@ -28,9 +27,11 @@ class GenerateJdlTaskTest {
         projectDir.resolve(".yo-rc.json").writeText("""{"generator-jhipster":{"baseName":"edster"}}""")
         jdlFile = projectDir.resolve("edster.jdl").also { it.writeText("application {}") }
 
-        val project = org.gradle.testfixtures.ProjectBuilder.builder()
-            .withProjectDir(workspaceDir)
-            .build()
+        val project =
+            org.gradle.testfixtures.ProjectBuilder
+                .builder()
+                .withProjectDir(workspaceDir)
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         task = project.tasks.getByName("generateJdl") as GenerateJdlTask
     }
@@ -65,9 +66,10 @@ class GenerateJdlTaskTest {
     fun `validateInputs lève une erreur si le fichier JDL est absent`() {
         val fakeJdl = parentDir.resolve("missing.jdl")
 
-        val ex = assertThrows(IllegalArgumentException::class.java) {
-            task.validateInputs(projectDir, fakeJdl)
-        }
+        val ex =
+            assertThrows(IllegalArgumentException::class.java) {
+                task.validateInputs(projectDir, fakeJdl)
+            }
         assertTrue("JDL" in ex.message!!)
     }
 
@@ -97,9 +99,10 @@ class GenerateJdlTaskTest {
 
     @Test
     fun `applyGitignoreEntries ajoute les nouvelles entrées`() {
-        val gitignore = projectDir.resolve(".gitignore").also {
-            it.writeText("build/\n.gradle/\n")
-        }
+        val gitignore =
+            projectDir.resolve(".gitignore").also {
+                it.writeText("build/\n.gradle/\n")
+            }
 
         task.applyGitignoreEntries(projectDir)
 
@@ -111,9 +114,10 @@ class GenerateJdlTaskTest {
 
     @Test
     fun `applyGitignoreEntries n'ajoute pas de doublons`() {
-        val gitignore = projectDir.resolve(".gitignore").also {
-            it.writeText("build/\n.gradle/\nREADME.pdf\nREADME.html\n")
-        }
+        val gitignore =
+            projectDir.resolve(".gitignore").also {
+                it.writeText("build/\n.gradle/\nREADME.pdf\nREADME.html\n")
+            }
 
         task.applyGitignoreEntries(projectDir)
 
@@ -130,22 +134,24 @@ class GenerateJdlTaskTest {
 
     @Test
     fun `applyGitignoreEntries ne modifie pas si tout est déjà présent`() {
-        val originalContent = buildString {
-            appendLine("build/")
-            appendLine(".gradle/")
-            appendLine(".goose")
-            appendLine("README.pdf")
-            appendLine("README.html")
-            appendLine("README.docx")
-            appendLine("README.epub")
-            appendLine("README.fr.pdf")
-            appendLine("README.fr.html")
-            appendLine("README.fr.docx")
-            appendLine("README.fr.epub")
-        }
-        val gitignore = projectDir.resolve(".gitignore").also {
-            it.writeText(originalContent)
-        }
+        val originalContent =
+            buildString {
+                appendLine("build/")
+                appendLine(".gradle/")
+                appendLine(".goose")
+                appendLine("README.pdf")
+                appendLine("README.html")
+                appendLine("README.docx")
+                appendLine("README.epub")
+                appendLine("README.fr.pdf")
+                appendLine("README.fr.html")
+                appendLine("README.fr.docx")
+                appendLine("README.fr.epub")
+            }
+        val gitignore =
+            projectDir.resolve(".gitignore").also {
+                it.writeText(originalContent)
+            }
 
         val lastModifiedBefore = gitignore.lastModified()
         task.applyGitignoreEntries(projectDir)
@@ -157,13 +163,16 @@ class GenerateJdlTaskTest {
     @Test
     fun `patchLibsVersionsToml met à jour la version Kotlin`() {
         val gradleDir = projectDir.resolve("gradle").also { it.mkdirs() }
-        val toml = gradleDir.resolve("libs.versions.toml").also {
-            it.writeText("""
-                [versions]
-                kotlin = "2.2.10"
-                spring-boot = "4.0.0"
-            """.trimIndent())
-        }
+        val toml =
+            gradleDir.resolve("libs.versions.toml").also {
+                it.writeText(
+                    """
+                    [versions]
+                    kotlin = "2.2.10"
+                    spring-boot = "4.0.0"
+                    """.trimIndent(),
+                )
+            }
 
         task.patchLibsVersionsToml(projectDir, "2.3.20")
 
@@ -191,11 +200,13 @@ class GenerateJdlTaskTest {
 
     @Test
     fun `patchBuildGradle n'ajoute pas jvmToolchain si déjà présent`() {
-        projectDir.resolve("build.gradle").writeText("""
+        projectDir.resolve("build.gradle").writeText(
+            """
             plugins { id("kotlin") }
             // jhipster-persistence: jvmToolchain
             kotlin.jvmToolchain(25)
-        """.trimIndent())
+            """.trimIndent(),
+        )
 
         val before = projectDir.resolve("build.gradle").readText()
         task.patchBuildGradle(projectDir)
@@ -212,9 +223,11 @@ class GenerateJdlTaskTest {
     @Test
     fun `patchBuildSrc met à jour la version du plugin Kotlin`() {
         projectDir.resolve("buildSrc").mkdirs()
-        projectDir.resolve("buildSrc/build.gradle").writeText("""
+        projectDir.resolve("buildSrc/build.gradle").writeText(
+            """
             dependencies { implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.10") }
-        """.trimIndent())
+            """.trimIndent(),
+        )
 
         task.patchBuildSrc(projectDir, "2.3.20")
 
@@ -235,7 +248,7 @@ class GenerateJdlTaskTest {
         projectDir.resolve("build.gradle").writeText("plugins { id(\"kotlin\") }")
         projectDir.resolve("buildSrc").mkdirs()
         projectDir.resolve("buildSrc/build.gradle").writeText(
-            "dependencies { implementation(\"org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.10\") }"
+            "dependencies { implementation(\"org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.10\") }",
         )
 
         task.configureKotlin(projectDir, "2.3.20")

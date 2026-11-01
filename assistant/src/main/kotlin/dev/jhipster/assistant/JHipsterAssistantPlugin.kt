@@ -18,7 +18,7 @@ import org.gradle.api.Project
 class JHipsterAssistantPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.logger.lifecycle(
-            "[jhipster-assistant] Plugin chargé — implémentation à venir."
+            "[jhipster-assistant] Plugin chargé — implémentation à venir.",
         )
     }
 }

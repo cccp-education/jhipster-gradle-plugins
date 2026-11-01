@@ -9,6 +9,8 @@ plugins {
     signing
     id("jhipster.gradle-plugin-conventions")
     alias(libs.plugins.kotlin.serialization)
+    // LINT-ADOPT-13 (S-336) — static analysis gate (ktlint in `check`).
+    id("education.cccp.build.lint") version "0.0.7"
 }
 
 group = "education.cccp"
@@ -43,22 +45,29 @@ dependencies {
 
 gradlePlugin {
     website = "https://github.com/cheroliv/jhipster-gradle-plugins"
-    vcsUrl  = "https://github.com/cheroliv/jhipster-gradle-plugins"
+    vcsUrl = "https://github.com/cheroliv/jhipster-gradle-plugins"
 
     plugins {
         create("jhipsterAssistant") {
-            id                  = "education.cccp.jhipster.assistant"
+            id = "education.cccp.jhipster.assistant"
             implementationClass = "dev.jhipster.assistant.JHipsterAssistantPlugin"
-            displayName         = "JHipster Assistant Plugin"
-            description         = """
+            displayName = "JHipster Assistant Plugin"
+            description =
+                """
                 Assistance au code Kotlin JHipster via RAG pgvector et LLM multi-provider.
                 Conversation AsciiDoc persistée.
                 Documentation officielle indexée (JHipster, Kotlin, Gradle, Arrow).
-            """.trimIndent()
-            tags = listOf(
-                "jhipster", "kotlin", "rag", "ai",
-                "langchain4j", "pgvector", "assistant"
-            )
+                """.trimIndent()
+            tags =
+                listOf(
+                    "jhipster",
+                    "kotlin",
+                    "rag",
+                    "ai",
+                    "langchain4j",
+                    "pgvector",
+                    "assistant",
+                )
         }
     }
 }

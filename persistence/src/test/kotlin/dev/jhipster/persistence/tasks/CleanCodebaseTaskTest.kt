@@ -9,7 +9,6 @@ import org.junit.jupiter.api.io.TempDir
 import java.io.File
 
 class CleanCodebaseTaskTest {
-
     @TempDir
     lateinit var parentDir: File
 
@@ -25,20 +24,33 @@ class CleanCodebaseTaskTest {
         projectDir = parentDir.resolve("edster").also { it.mkdirs() }
         projectDir.resolve(".yo-rc.json").writeText("""{"generator-jhipster":{"baseName":"edster"}}""")
 
-        val project = ProjectBuilder.builder()
-            .withProjectDir(workspaceDir)
-            .build()
+        val project =
+            ProjectBuilder
+                .builder()
+                .withProjectDir(workspaceDir)
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         task = project.tasks.getByName("cleanCodebase") as CleanCodebaseTask
     }
 
     @Test
     fun `delete les répertoires générés par JHipster`() {
-        val generatedDirs = listOf(
-            ".gradle", "build", ".devcontainer", ".github", ".goose",
-            ".husky", ".jhipster", "buildSrc", "gradle", "node_modules",
-            "src", "webpack", ".vscode"
-        )
+        val generatedDirs =
+            listOf(
+                ".gradle",
+                "build",
+                ".devcontainer",
+                ".github",
+                ".goose",
+                ".husky",
+                ".jhipster",
+                "buildSrc",
+                "gradle",
+                "node_modules",
+                "src",
+                "webpack",
+                ".vscode",
+            )
         generatedDirs.forEach { projectDir.resolve(it).mkdirs() }
 
         projectDir.resolve("__codebase__").mkdirs()
@@ -49,30 +61,51 @@ class CleanCodebaseTaskTest {
         generatedDirs.forEach { dir ->
             assertFalse(
                 projectDir.resolve(dir).exists(),
-                "$dir/ doit être supprimé"
+                "$dir/ doit être supprimé",
             )
         }
         assertTrue(projectDir.resolve("__codebase__").exists(), "__codebase__/ doit survivre")
         assertTrue(
             projectDir.resolve("__codebase__/Service.kt").exists(),
-            "Le contenu de __codebase__/ doit survivre"
+            "Le contenu de __codebase__/ doit survivre",
         )
     }
 
     @Test
     fun `delete les fichiers générés par JHipster`() {
-        val generatedFiles = listOf(
-            ".editorconfig", ".gitignore", ".gitattributes",
-            ".lintstagedrc.cjs", ".prettierignore", ".prettierrc",
-            ".yo-rc.json", "build.gradle", "checkstyle.xml",
-            "cypress.config.ts", "cypress-audits.config.ts",
-            "eslint.config.mjs", "gradle.properties", "gradlew",
-            "gradlew.bat", "jest.conf.js", "pnpmw", "pnpmw.cmd",
-            "npmw", "npmw.cmd", "package.json", "package-lock.json",
-            "pnpm-lock.yaml", "postcss.config.js", "README.md",
-            "settings.gradle", "sonar-project.properties",
-            "tsconfig.json", "tsconfig.test.json", "local.properties"
-        )
+        val generatedFiles =
+            listOf(
+                ".editorconfig",
+                ".gitignore",
+                ".gitattributes",
+                ".lintstagedrc.cjs",
+                ".prettierignore",
+                ".prettierrc",
+                ".yo-rc.json",
+                "build.gradle",
+                "checkstyle.xml",
+                "cypress.config.ts",
+                "cypress-audits.config.ts",
+                "eslint.config.mjs",
+                "gradle.properties",
+                "gradlew",
+                "gradlew.bat",
+                "jest.conf.js",
+                "pnpmw",
+                "pnpmw.cmd",
+                "npmw",
+                "npmw.cmd",
+                "package.json",
+                "package-lock.json",
+                "pnpm-lock.yaml",
+                "postcss.config.js",
+                "README.md",
+                "settings.gradle",
+                "sonar-project.properties",
+                "tsconfig.json",
+                "tsconfig.test.json",
+                "local.properties",
+            )
         generatedFiles.forEach { projectDir.resolve(it).createNewFile() }
 
         task.clean()
@@ -80,7 +113,7 @@ class CleanCodebaseTaskTest {
         generatedFiles.forEach { file ->
             assertFalse(
                 projectDir.resolve(file).exists(),
-                "$file doit être supprimé"
+                "$file doit être supprimé",
             )
         }
     }

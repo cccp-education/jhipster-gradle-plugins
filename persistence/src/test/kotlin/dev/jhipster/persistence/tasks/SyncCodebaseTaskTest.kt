@@ -9,7 +9,6 @@ import org.junit.jupiter.api.io.TempDir
 import java.io.File
 
 class SyncCodebaseTaskTest {
-
     @TempDir
     lateinit var parentDir: File
 
@@ -27,9 +26,11 @@ class SyncCodebaseTaskTest {
         projectDir.resolve(".yo-rc.json").writeText("""{"generator-jhipster":{"baseName":"edster"}}""")
         codebaseDir = projectDir.resolve("__codebase__").also { it.mkdirs() }
 
-        val project = org.gradle.testfixtures.ProjectBuilder.builder()
-            .withProjectDir(workspaceDir)
-            .build()
+        val project =
+            org.gradle.testfixtures.ProjectBuilder
+                .builder()
+                .withProjectDir(workspaceDir)
+                .build()
         project.pluginManager.apply("com.cheroliv.jhipster.persistence")
         task = project.tasks.getByName("syncCodebase") as SyncCodebaseTask
     }
@@ -77,5 +78,4 @@ class SyncCodebaseTaskTest {
     fun `ignore les entrées absentes de __codebase__`() {
         task.sync()
     }
-
 }

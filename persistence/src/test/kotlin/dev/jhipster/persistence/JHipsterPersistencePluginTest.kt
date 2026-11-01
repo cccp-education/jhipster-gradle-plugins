@@ -26,29 +26,33 @@ import java.io.File
  */
 @Suppress("NonAsciiCharacters")
 class JHipsterPersistencePluginTest {
-
     @TempDir
-    lateinit var parentDir: File   // simule le dossier parent commun
+    lateinit var parentDir: File // simule le dossier parent commun
 
-    private lateinit var pluginDir: File   // workspace qui applique le plugin
-    private lateinit var edsterDir: File   // projet JHipster frère
+    private lateinit var pluginDir: File // workspace qui applique le plugin
+    private lateinit var edsterDir: File // projet JHipster frère
 
     @BeforeEach
     fun setUp() {
         // workspace/ — projet Gradle qui applique le plugin
         pluginDir = parentDir.resolve("workspace").also { it.mkdirs() }
-        pluginDir.resolve("settings.gradle.kts")
+        pluginDir
+            .resolve("settings.gradle.kts")
             .writeText("""rootProject.name = "workspace"""")
-        pluginDir.resolve("build.gradle.kts")
+        pluginDir
+            .resolve("build.gradle.kts")
             .writeText("""plugins { id("com.cheroliv.jhipster.persistence") }""")
 
         // edster/ — projet JHipster frère (même niveau que workspace/)
         edsterDir = parentDir.resolve("edster").also { it.mkdirs() }
-        edsterDir.resolve(".yo-rc.json")
+        edsterDir
+            .resolve(".yo-rc.json")
             .writeText("""{"generator-jhipster":{"baseName":"edster"}}""")
-        edsterDir.resolve("edster.jdl")
+        edsterDir
+            .resolve("edster.jdl")
             .writeText("entity Workspace { name String required }")
-        edsterDir.resolve("build.gradle")
+        edsterDir
+            .resolve("build.gradle")
             .writeText("// généré par JHipster")
         edsterDir.resolve("__codebase__").mkdirs()
         edsterDir.resolve("src/main/docker").mkdirs()
@@ -57,11 +61,13 @@ class JHipsterPersistencePluginTest {
     @Suppress("NonAsciiCharacters")
     @Test
     fun `le plugin expose les tâches du groupe jhipster-persistence`() {
-        val result = GradleRunner.create()
-            .withProjectDir(pluginDir)
-            .withPluginClasspath()
-            .withArguments("tasks", "--group=jhipster-persistence")
-            .build()
+        val result =
+            GradleRunner
+                .create()
+                .withProjectDir(pluginDir)
+                .withPluginClasspath()
+                .withArguments("tasks", "--group=jhipster-persistence")
+                .build()
 
         listOf(
             "cleanCodebase",
@@ -71,26 +77,28 @@ class JHipsterPersistencePluginTest {
             "dockerDb",
             "dockerUp",
             "dockerDown",
-            "dev"
+            "dev",
         ).forEach { task ->
             assertTrue(
                 task in result.output,
-                "Tâche '$task' absente du groupe jhipster-persistence\nOutput:\n${result.output}"
+                "Tâche '$task' absente du groupe jhipster-persistence\nOutput:\n${result.output}",
             )
         }
     }
 
     @Test
     fun `le plugin résout le projet JHipster par convention`() {
-        val result = GradleRunner.create()
-            .withProjectDir(pluginDir)
-            .withPluginClasspath()
-            .withArguments("tasks")
-            .build()
+        val result =
+            GradleRunner
+                .create()
+                .withProjectDir(pluginDir)
+                .withPluginClasspath()
+                .withArguments("tasks")
+                .build()
 
         assertTrue(
             "jhipster-persistence" in result.output,
-            "Le groupe jhipster-persistence doit apparaître dans tasks\nOutput:\n${result.output}"
+            "Le groupe jhipster-persistence doit apparaître dans tasks\nOutput:\n${result.output}",
         )
     }
 
@@ -107,24 +115,26 @@ class JHipsterPersistencePluginTest {
         val codebaseFile = edsterDir.resolve("__codebase__/Service.kt")
         codebaseFile.writeText("// code métier")
 
-        val result = GradleRunner.create()
-            .withProjectDir(pluginDir)
-            .withPluginClasspath()
-            .withArguments("cleanCodebase")
-            .build()
+        val result =
+            GradleRunner
+                .create()
+                .withProjectDir(pluginDir)
+                .withPluginClasspath()
+                .withArguments("cleanCodebase")
+                .build()
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":cleanCodebase")?.outcome)
 
         // Artefacts JHipster supprimés
-        assertTrue(!edsterDir.resolve("build").exists(),        "build/ doit être supprimé")
+        assertTrue(!edsterDir.resolve("build").exists(), "build/ doit être supprimé")
         assertTrue(!edsterDir.resolve("node_modules").exists(), "node_modules/ doit être supprimé")
-        assertTrue(!edsterDir.resolve("src").exists(),          "src/ doit être supprimé")
+        assertTrue(!edsterDir.resolve("src").exists(), "src/ doit être supprimé")
         assertTrue(!edsterDir.resolve("package.json").exists(), "package.json doit être supprimé")
-        assertTrue(!edsterDir.resolve("gradlew").exists(),      "gradlew doit être supprimé")
+        assertTrue(!edsterDir.resolve("gradlew").exists(), "gradlew doit être supprimé")
 
         // __codebase__/ intact
-        assertTrue(edsterDir.resolve("__codebase__").exists(),  "__codebase__/ doit rester intact")
-        assertTrue(codebaseFile.exists(),                       "Le code métier dans __codebase__/ doit survivre")
+        assertTrue(edsterDir.resolve("__codebase__").exists(), "__codebase__/ doit rester intact")
+        assertTrue(codebaseFile.exists(), "Le code métier dans __codebase__/ doit survivre")
     }
 
     @Test
@@ -136,11 +146,13 @@ class JHipsterPersistencePluginTest {
         edsterDir.resolve("build.gradle").writeText("// generated")
         edsterDir.resolve("src/main/kotlin").mkdirs()
 
-        val result = GradleRunner.create()
-            .withProjectDir(pluginDir)
-            .withPluginClasspath()
-            .withArguments("syncCodebase")
-            .build()
+        val result =
+            GradleRunner
+                .create()
+                .withProjectDir(pluginDir)
+                .withPluginClasspath()
+                .withArguments("syncCodebase")
+                .build()
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":syncCodebase")?.outcome)
         assertEquals("// custom build", edsterDir.resolve("build.gradle").readText())
@@ -148,20 +160,24 @@ class JHipsterPersistencePluginTest {
     }
 
     @Test
-    fun `le plugin lève une erreur explicite sans projet JHipster`(@TempDir orphanParent: File) {
+    fun `le plugin lève une erreur explicite sans projet JHipster`(
+        @TempDir orphanParent: File,
+    ) {
         val orphanWorkspace = orphanParent.resolve("orphan").also { it.mkdirs() }
         orphanWorkspace.resolve("settings.gradle.kts").writeText("""rootProject.name = "orphan"""")
         orphanWorkspace.resolve("build.gradle.kts").writeText("""plugins { id("com.cheroliv.jhipster.persistence") }""")
 
-        val result = GradleRunner.create()
-            .withProjectDir(orphanWorkspace)
-            .withPluginClasspath()
-            .withArguments("tasks")
-            .buildAndFail()
+        val result =
+            GradleRunner
+                .create()
+                .withProjectDir(orphanWorkspace)
+                .withPluginClasspath()
+                .withArguments("tasks")
+                .buildAndFail()
 
         assertTrue(
             ".yo-rc.json" in result.output || "JHipster" in result.output,
-            "Le message d'erreur doit mentionner JHipster ou .yo-rc.json\nOutput:\n${result.output}"
+            "Le message d'erreur doit mentionner JHipster ou .yo-rc.json\nOutput:\n${result.output}",
         )
     }
 
@@ -173,11 +189,13 @@ class JHipsterPersistencePluginTest {
         edsterDir.resolve("__codebase__/.hidden/cache").mkdirs()
         edsterDir.resolve("__codebase__/.hidden/config.yaml").writeText("key: value")
 
-        val result = GradleRunner.create()
-            .withProjectDir(pluginDir)
-            .withPluginClasspath()
-            .withArguments("cleanCodebase")
-            .build()
+        val result =
+            GradleRunner
+                .create()
+                .withProjectDir(pluginDir)
+                .withPluginClasspath()
+                .withArguments("cleanCodebase")
+                .build()
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":cleanCodebase")?.outcome)
         assertTrue(!edsterDir.resolve("build").exists())

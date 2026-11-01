@@ -23,8 +23,9 @@ import java.io.File
  *     └── docker-compose.yml     ← stack complète (dockerComposeFile)
  * ```
  */
-class ProjectConventions(val projectDir: File) {
-
+class ProjectConventions(
+    val projectDir: File,
+) {
     val projectName: String = projectDir.name
 
     val codebaseDir: File = projectDir.resolve("__codebase__")
@@ -35,21 +36,27 @@ class ProjectConventions(val projectDir: File) {
 
     // Fichiers Docker découverts par convention (ordre de priorité)
     val dockerComposeFile: File?
-        get() = listOf("docker-compose.yml", "app.yml")
-            .map { dockerDir.resolve(it) }
-            .firstOrNull { it.exists() }
+        get() =
+            listOf("docker-compose.yml", "app.yml")
+                .map { dockerDir.resolve(it) }
+                .firstOrNull { it.exists() }
 
     val dockerDbFile: File?
-        get() = listOf("postgresql.yml", "postgres.yml")
-            .map { dockerDir.resolve(it) }
-            .firstOrNull { it.exists() }
+        get() =
+            listOf("postgresql.yml", "postgres.yml")
+                .map { dockerDir.resolve(it) }
+                .firstOrNull { it.exists() }
 
-    fun validate(): List<String> = buildList {
-        if (!projectDir.exists())
-            add("Le répertoire du projet JHipster n'existe pas : ${projectDir.absolutePath}")
-        if (!codebaseDir.exists())
-            add("Le répertoire __codebase__ est absent : ${codebaseDir.absolutePath}")
-        if (!jdlFile.exists())
-            add("Le fichier JDL est absent : ${jdlFile.absolutePath}")
-    }
+    fun validate(): List<String> =
+        buildList {
+            if (!projectDir.exists()) {
+                add("Le répertoire du projet JHipster n'existe pas : ${projectDir.absolutePath}")
+            }
+            if (!codebaseDir.exists()) {
+                add("Le répertoire __codebase__ est absent : ${codebaseDir.absolutePath}")
+            }
+            if (!jdlFile.exists()) {
+                add("Le fichier JDL est absent : ${jdlFile.absolutePath}")
+            }
+        }
 }
