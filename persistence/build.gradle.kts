@@ -15,7 +15,7 @@ plugins {
 //    alias(libs.plugins.publish)
     id("jhipster.gradle-plugin-conventions")
     // LINT-ADOPT-13 (S-336) — static analysis gate (ktlint in `check`).
-    id("education.cccp.build.lint") version "0.0.10"
+    id("education.cccp.build.lint") version "0.0.11"
 }
 
 group = "education.cccp"
