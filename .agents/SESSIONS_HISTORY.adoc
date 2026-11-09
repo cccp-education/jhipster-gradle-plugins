@@ -14,3 +14,9 @@
 | 9 | 2026-06-19 | fix | Fix POM developer email — cccp.education@gmail.com → cccp.edu@gmail.com | persistence+assistant | 9/10
 | 8 | 2026-06-11 | publish | Publication Maven Central — root désactivé, settings nmcp, persistence POM+nmcp+signing, assistant 0.1.0+plugin ID education.cccp.jhipster.assistant+POM+nmcp+signing. Les deux publiés | persistence+assistant | 9/10
 |===
+
+== Session 010 — JitPack mirror (CNV-16) — 2026-11-09
+
+Aucune publication JitPack dans cette passe (assistant SNAPSHOT/legacy, hors périmètre) ; settings shim uniquement. JitPack : n/a. Shim `useModule` pour
+`education.cccp.build.*` (tag JitPack `0.0.15`). Rapport
+`.agents/sessions/010-jitpack-mirror.adoc`.

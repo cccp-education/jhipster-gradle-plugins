@@ -179,3 +179,7 @@ Projets gerant la meme methodologie opencode (EAGER/LAZY, procedure de fin de se
 | quizz-benchmark-gradle | `~/workspace/foundry/OSS/quizz-benchmark-gradle` | - | TEST_COVERAGE_ANALYSIS.adoc | 2026-04-27
 | **jhipster-gradle-plugins** | `~/workspace/foundry/public/jhipster-gradle-plugins` | **9** | TEST_COVERAGE_ANALYSIS.adoc | **2026-06-11**
 |===
+
+== Session 010 — JitPack mirror (CNV-16)
+
+Aucune publication JitPack dans cette passe (assistant SNAPSHOT/legacy, hors périmètre) ; settings shim uniquement. JitPack : n/a.
