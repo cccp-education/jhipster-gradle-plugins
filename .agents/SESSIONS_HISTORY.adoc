@@ -32,3 +32,9 @@ Aucune publication JitPack dans cette passe (assistant SNAPSHOT/legacy, hors pé
 == Session 012 — GBL-013 vague 2 : gate lint dans l'image — 2026-11-14
 
 ci/run.sh (fast = :persistence:ktlintCheck :assistant:ktlintCheck) + lint.yml migré (container cccp-ci-base@sha256:4722…, sans setup-java). Run 43497004304 VERT. Rapport `.agents/sessions/012-gbl-013-wave2.adoc`.
+
+== Session 013 — EAGER : publication JitPack canal unique — 2026-11-14
+
+Alignement EAGER : JitPack canal unique ; Maven Central/Sonatype et
+Gradle Plugin Portal **retirés**. Aucun code, aucun test, aucune
+publication. Rapport `.agents/sessions/013-eager-publication-jitpack-only.adoc`.

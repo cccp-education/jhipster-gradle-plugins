@@ -194,3 +194,9 @@ historique des modules reste Maven Central. Rapport
 
 == Session 012 — GBL-013 (clôture) — 2026-11-14
 Gate lint dans l'image ; run 43497004304.
+
+== Session 013 — EAGER : publication JitPack canal unique (2026-11-14)
+
+Alignement EAGER (AGENT/PROMPT_REPRISE) : JitPack canal unique ;
+Central/Portal retirés. Zéro code. Rapport
+`.agents/sessions/013-eager-publication-jitpack-only.adoc`.
