@@ -44,7 +44,7 @@ jhipster-gradle-plugins/
 ├── assistant/                   ← com.cheroliv.jhipster.assistant (SNAPSHOT, lourd)
 │   ├── build.gradle.kts
 │   └── src/
-├── gradle.properties.template   ← credentials Plugin Portal (ne pas committer)
+├── gradle.properties.template   ← obsolète (JitPack : aucun credential ; ne pas committer)
 ├── PROMPT_REPRISE.adoc         ← Mission session en cours (EAGER)
 └── AGENT.adoc                   ← Directives completes (ce fichier, EAGER)
 ----
@@ -65,7 +65,7 @@ tirer LangChain4j ou Docker. `assistant` isole toutes les dependances lourdes (R
 
 # Persistence uniquement
 ./gradlew :persistence:check
-./gradlew :persistence:publishPlugins           # Plugin Portal
+// Publication : tag annoté `vX.Y.Z` + push → JitPack (pas de publishPlugins)
 ./gradlew :persistence:publishToMavenLocal       # Publication locale (tests)
 
 # Assistant uniquement (SNAPSHOT, non publie)
@@ -103,7 +103,7 @@ _Procedure obligatoire avant tout commit_ :
 . **Verifier** apres modification
 
 **Attention particuliere ici** :
-* `gradle.properties` — contient `gradle.publish.key` et `gradle.publish.secret` (Plugin Portal credentials). Genere depuis `gradle.properties.template`. **Jamais committer**.
+* `gradle.properties` — credentials Plugin Portal **obsolètes** (JitPack ne demande aucun credential). **Jamais committer** s il en existe.
 * `gradle.properties.template` — template public, sans secrets.
 
 === 1c. FICHIERS PERSONNELS — INTERDICTION DE MODIFIER
@@ -181,7 +181,7 @@ _Aucune etape ne peut etre marquee [✅] si le fichier n'a pas ete effectivement
 * Documentation : AsciiDoc (.adoc) + README
 * Version catalog : `gradle/libs.versions.toml` (partage), `buildSrc/gradle/libs.versions.toml` (buildSrc)
 * Plugin IDs : `com.cheroliv.jhipster.persistence` (stable), `com.cheroliv.jhipster.assistant` (SNAPSHOT)
-* Publication : Gradle Plugin Portal (`com.gradle.plugin-publish`)
+* Publication : **JitPack** (canal unique, tag `vX.Y.Z`) — Maven Central et Plugin Portal retirés
 
 === References de Style — Codebases LAZY
 

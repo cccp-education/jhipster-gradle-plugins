@@ -2,8 +2,9 @@
 
 _Session 011 (2026-11-14)_ : **CNV-17 — JitPack canal unique**. `settings.gradle.kts`
 shim conventions repointé `0.0.17` (N0 `workspace-bom 0.0.136`) ; CI verte.
-Aucune publication JitPack dans cette passe (assistant SNAPSHOT/legacy) ; le canal
-historique des modules reste Maven Central (`persistence 0.0.1`, `assistant 0.1.0`).
+Aucune publication JitPack dans cette passe (assistant SNAPSHOT/legacy). Les mentions
+Maven Central ci-dessous sont **historiques** : Maven Central et Plugin Portal
+sont retirés, JitPack est le canal unique (CNV-17).
 Rapport `.agents/sessions/011-cnv-17-jitpack-channel.adoc`.
 
 == Prochaine session (012)
@@ -15,8 +16,8 @@ Maintenance legacy, à définir :
 
 == Rappels
 
-- **persistence** : `education.cccp:jhipster-persistence:0.0.1` (Maven Central)
-- **assistant** : `education.cccp:jhipster-assistant:0.1.0` (Maven Central)
+- **persistence** : `education.cccp:jhipster-persistence:0.0.1` (historique Central ; JitPack à tagger)
+- **assistant** : `education.cccp:jhipster-assistant:0.1.0` (historique Central ; JitPack à tagger)
 - Boundary : persistence = lightweight (pas de LangChain4j/Docker/pgvector)
 - Git autorisé (décision pilote 2026-09-17).
 - Publication : canal unique **JitPack** pour les artefacts publics ; toute
