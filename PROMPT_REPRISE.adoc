@@ -22,3 +22,8 @@ Maintenance legacy, à définir :
 - Publication : canal unique **JitPack** pour les artefacts publics ; toute
   republication exige une version de dépôt unique (tag) et le retrait du
   `-SNAPSHOT`.
+
+== GBL-013 (clôture) — 2026-11-14
+Portabilité CI livrée : image \`cccp-ci-base\`, \`ci/run.sh\`, adapter fin.
+Rapport \`.agents/sessions/012-gbl-013-wave2.adoc\`. Reste : US-5→US-9 (cadrage racine
+\`.agents/CADRAGE_EPIC_GBL_013_PORTABILITE_CI.adoc\`).

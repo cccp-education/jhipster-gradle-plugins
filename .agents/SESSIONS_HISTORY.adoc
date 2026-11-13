@@ -28,3 +28,7 @@ Central. Rapport `.agents/sessions/011-cnv-17-jitpack-channel.adoc`.
 Aucune publication JitPack dans cette passe (assistant SNAPSHOT/legacy, hors périmètre) ; settings shim uniquement. JitPack : n/a. Shim `useModule` pour
 `education.cccp.build.*` (tag JitPack `0.0.15`). Rapport
 `.agents/sessions/010-jitpack-mirror.adoc`.
+
+== Session 012 — GBL-013 vague 2 : gate lint dans l'image — 2026-11-14
+
+ci/run.sh (fast = :persistence:ktlintCheck :assistant:ktlintCheck) + lint.yml migré (container cccp-ci-base@sha256:4722…, sans setup-java). Run 43497004304 VERT. Rapport `.agents/sessions/012-gbl-013-wave2.adoc`.

@@ -1,0 +1,14 @@
+= Session 012 — GBL-013 vague 2 : gate lint dans l'image
+:date: 2026-11-14
+:borough: Philly (jhipster-gradle-plugins)
+
+== Livré
+
+* `ci/run.sh` (`fast` = `:persistence:ktlintCheck :assistant:ktlintCheck`).
+* `.github/workflows/lint.yml` migré : `container:` épinglé sur
+  `cccpeducation/cccp-ci-base@sha256:4722c1bc…`, suppression de `setup-java`,
+  `ci/run.sh fast`. Run `43497004304` **VERT**.
+
+== Note
+
+Mono-repo legacy ; aucune autre modification de code.

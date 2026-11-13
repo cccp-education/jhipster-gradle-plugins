@@ -191,3 +191,6 @@ Shim conventions repointé `0.0.17` (N0 `workspace-bom 0.0.136`) ; CI verte.
 Aucune publication JitPack dans cette passe (legacy / SNAPSHOT) ; le canal
 historique des modules reste Maven Central. Rapport
 `.agents/sessions/011-cnv-17-jitpack-channel.adoc`.
+
+== Session 012 — GBL-013 (clôture) — 2026-11-14
+Gate lint dans l'image ; run 43497004304.
