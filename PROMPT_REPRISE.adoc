@@ -1,14 +1,14 @@
-= PROMPT_REPRISE.adoc — Session 008 TERMINÉE
+= PROMPT_REPRISE.adoc — Session 011 TERMINÉE
 
-_Session 008 (2026-06-11)_ : Publication Maven Central des deux plugins.
-Root build désactivé (readme:0.0.0), settings nmcp ajouté.
-Persistence : POM sans guard + Sonatype→nmcp + signing GPG.
-Assistant : version 0.1.0-SNAPSHOT→0.1.0, plugin ID dev.jhipster.assistant→education.cccp.jhipster.assistant, POM complet + nmcp + signing.
-Les deux publiés séparément sur Maven Central ✅
+_Session 011 (2026-11-14)_ : **CNV-17 — JitPack canal unique**. `settings.gradle.kts`
+shim conventions repointé `0.0.17` (N0 `workspace-bom 0.0.136`) ; CI verte.
+Aucune publication JitPack dans cette passe (assistant SNAPSHOT/legacy) ; le canal
+historique des modules reste Maven Central (`persistence 0.0.1`, `assistant 0.1.0`).
+Rapport `.agents/sessions/011-cnv-17-jitpack-channel.adoc`.
 
-== Prochaine session (009)
+== Prochaine session (012)
 
-À définir :
+Maintenance legacy, à définir :
 - Assistant EPIC 2 — RAG pgvector (indexation doc JHipster/Kotlin/Gradle/Arrow)
 - Assistant EPIC 3 — Multi-provider LLM (Ollama/Gemini/Mistral)
 - Assistant EPIC 5 — Tests intégrés + TestContainers
@@ -19,3 +19,6 @@ Les deux publiés séparément sur Maven Central ✅
 - **assistant** : `education.cccp:jhipster-assistant:0.1.0` (Maven Central)
 - Boundary : persistence = lightweight (pas de LangChain4j/Docker/pgvector)
 - Git autorisé (décision pilote 2026-09-17).
+- Publication : canal unique **JitPack** pour les artefacts publics ; toute
+  republication exige une version de dépôt unique (tag) et le retrait du
+  `-SNAPSHOT`.

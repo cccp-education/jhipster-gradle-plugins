@@ -2,9 +2,9 @@
 
 _Regles absolues_ : voir `AGENT.adoc` section "Regles Absolues"
 
-_Derniere mise a jour_ : 2026-06-11
-_Session en cours_ : 10 — À définir
-_Session terminee_ : 9 — Fix POM developer email (cccp.education@gmail.com → cccp.edu@gmail.com)
+_Derniere mise a jour_ : 2026-11-14 (Session 011 — CNV-17 JitPack canal unique)
+_Session en cours_ : 012 — À définir
+_Session terminee_ : 011 — CNV-17 JitPack canal unique (shim conventions `0.0.17`, mono-repo legacy)
 
 _Localisation active_ : `.agents/INDEX.adoc` (sessions recentes), `.agents/SESSIONS_HISTORY.adoc` (historique), `.agents/sessions/` (archives)
 
@@ -99,6 +99,7 @@ _Les 6 etapes OBLIGATOIRES_ (dans l'ordre) :
 | 006 | 2026-06-01 | governance | Regularisation 19e borough workspace (Philly integre dans AGENTS.adoc) | 10/10
 | 007 | 2026-05-07 | chore | Migration chemins foundry/ → foundry/OSS/ (granularisation OSS/CSS) | —
 | 008 | 2026-06-11 | publish | Publication Maven Central — root désactivé, settings nmcp, persistence POM+nmcp+signing, assistant 0.1.0+plugin ID+POM+nmcp+signing. Les deux publiés ✅ | 9/10
+| 011 | 2026-11-14 | publication | CNV-17 — JitPack canal unique (shim conventions `0.0.17`, mono-repo legacy) | 8/10
 |===
 
 '''
@@ -183,3 +184,10 @@ Projets gerant la meme methodologie opencode (EAGER/LAZY, procedure de fin de se
 == Session 010 — JitPack mirror (CNV-16)
 
 Aucune publication JitPack dans cette passe (assistant SNAPSHOT/legacy, hors périmètre) ; settings shim uniquement. JitPack : n/a.
+
+== Session 011 — CNV-17 : JitPack canal unique
+
+Shim conventions repointé `0.0.17` (N0 `workspace-bom 0.0.136`) ; CI verte.
+Aucune publication JitPack dans cette passe (legacy / SNAPSHOT) ; le canal
+historique des modules reste Maven Central. Rapport
+`.agents/sessions/011-cnv-17-jitpack-channel.adoc`.

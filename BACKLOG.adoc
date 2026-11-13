@@ -1,6 +1,6 @@
 = BACKLOG — JHipster Gradle Plugins (Philly)
 :sectnums:
-:last_update: 2026-06-13 (Session 8 — Publication Maven Central)
+:last_update: 2026-11-14 (Session 011 — CNV-17 JitPack canal unique)
 
 '''
 
@@ -36,3 +36,10 @@
 == Prochain EPIC
 
 Aucun — borough liquidé. Tous les EPICs terminés.
+
+== Session 011 — CNV-17 (JitPack canal unique)
+
+Shim conventions `0.0.17` (N0 `workspace-bom 0.0.136`) ; CI verte. Aucune
+publication JitPack dans cette passe (assistant SNAPSHOT/legacy) ; le canal
+historique des modules reste Maven Central. Rapport
+`.agents/sessions/011-cnv-17-jitpack-channel.adoc`.

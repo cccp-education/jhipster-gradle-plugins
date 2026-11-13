@@ -13,7 +13,15 @@
 | 7 | 2026-05-07 | chore | Migration chemins foundry/ → foundry/OSS/ dans INDEX.adoc (granularisation OSS/CSS) | racine | —
 | 9 | 2026-06-19 | fix | Fix POM developer email — cccp.education@gmail.com → cccp.edu@gmail.com | persistence+assistant | 9/10
 | 8 | 2026-06-11 | publish | Publication Maven Central — root désactivé, settings nmcp, persistence POM+nmcp+signing, assistant 0.1.0+plugin ID education.cccp.jhipster.assistant+POM+nmcp+signing. Les deux publiés | persistence+assistant | 9/10
+| 011 | 2026-11-14 | publication | CNV-17 — JitPack canal unique (shim conventions `0.0.17`, mono-repo legacy) | racine | 8/10
 |===
+
+== Session 011 — CNV-17 : JitPack canal unique — 2026-11-14
+
+`settings.gradle.kts` : shim `useModule` repointé sur le tag JitPack `0.0.17`
+(N0 `workspace-bom 0.0.136`). CI verte. Aucune publication JitPack dans cette
+passe (assistant SNAPSHOT/legacy) ; le canal historique des modules reste Maven
+Central. Rapport `.agents/sessions/011-cnv-17-jitpack-channel.adoc`.
 
 == Session 010 — JitPack mirror (CNV-16) — 2026-11-09
 
