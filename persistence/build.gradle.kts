@@ -31,8 +31,10 @@ dependencies {
 }
 
 gradlePlugin {
-    website = "https://github.com/cheroliv/jhipster-gradle-plugins"
-    vcsUrl = "https://github.com/cheroliv/jhipster-gradle-plugins"
+    // Sonatype 130791 — the POM url/scm must point to the public repository
+    // (the `cheroliv` path does not exist; the repo lives under `cccp-education`).
+    website = "https://github.com/cccp-education/jhipster-gradle-plugins"
+    vcsUrl = "https://github.com/cccp-education/jhipster-gradle-plugins"
     plugins {
         create("jhipsterPersistence") {
             id = "education.cccp.jhipster.persistence"
