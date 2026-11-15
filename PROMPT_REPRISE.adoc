@@ -1,13 +1,22 @@
-= PROMPT_REPRISE.adoc — Session 011 TERMINÉE
+= PROMPT_REPRISE.adoc — Session 014 TERMINÉE → 015
+:session: 015
+:date: 2026-11-15
+:etat: ✅ GBL-014-5 / GBL-014-4 / GBL-013-10 livrés, CI `Lint` verte — maintenance legacy.
 
-_Session 011 (2026-11-14)_ : **CNV-17 — JitPack canal unique**. `settings.gradle.kts`
-shim conventions repointé `0.0.17` (N0 `workspace-bom 0.0.136`) ; CI verte.
-Aucune publication JitPack dans cette passe (assistant SNAPSHOT/legacy). Les mentions
-Maven Central ci-dessous sont **historiques** : Maven Central et Plugin Portal
-sont retirés, JitPack est le canal unique (CNV-17).
-Rapport `.agents/sessions/011-cnv-17-jitpack-channel.adoc`.
+_Session 014 (2026-11-15)_ : **canal dual + shim + Node LTS**. `settings.gradle.kts`
+conditionnel sur `-Pchannel` (défaut `jitpack`, JitPack + shim `useModule(...)`
+seulement en `jitpack`) ; `ci/run.sh` passe `-Pchannel`. Shim
+`conventions-plugin 0.0.19`. Actions `node24`-natives (`lint.yml`,
+`readme_truth.yml`) et image `cccp-ci-base@sha256:03ead378…` (Node 26.13.1).
+CI `Lint` verte sur les 4 commits. Rapport
+`.agents/sessions/014-gbl-014-5-channel-rollout.adoc`.
 
-== Prochaine session (012)
+_Session 013 (2026-11-14)_ : **EAGER — JitPack canal unique** (documents
+alignés ; Central/Portal retirés). **Nuance GBL-014** : le canal est désormais
+une **propriété du build** (`-Pchannel=central|jitpack`, défaut `jitpack`) ;
+JitPack reste le seul canal servi aujourd'hui.
+
+== Prochaine session (015)
 
 Maintenance legacy, à définir :
 - Assistant EPIC 2 — RAG pgvector (indexation doc JHipster/Kotlin/Gradle/Arrow)
@@ -16,15 +25,12 @@ Maintenance legacy, à définir :
 
 == Rappels
 
-- **persistence** : `education.cccp:jhipster-persistence:0.0.1` (historique Central ; JitPack à tagger)
-- **assistant** : `education.cccp:jhipster-assistant:0.1.0` (historique Central ; JitPack à tagger)
+- **persistence** : `education.cccp:jhipster-persistence:0.0.1` (historique
+  Central ; JitPack à tagger)
+- **assistant** : `education.cccp:jhipster-assistant:0.1.0` (historique
+  Central ; `SNAPSHOT`/legacy → pas de tag tant que non stabilisé)
 - Boundary : persistence = lightweight (pas de LangChain4j/Docker/pgvector)
-- Git autorisé (décision pilote 2026-09-17).
-- Publication : canal unique **JitPack** pour les artefacts publics ; toute
-  republication exige une version de dépôt unique (tag) et le retrait du
-  `-SNAPSHOT`.
-
-== GBL-013 (clôture) — 2026-11-14
-Portabilité CI livrée : image \`cccp-ci-base\`, \`ci/run.sh\`, adapter fin.
-Rapport \`.agents/sessions/012-gbl-013-wave2.adoc\`. Reste : US-5→US-9 (cadrage racine
-\`.agents/CADRAGE_EPIC_GBL_013_PORTABILITE_CI.adoc\`).
+- Git autorisé (décision pilote 2026-09-17) — zéro secret commité
+- **Local = Build, Tests = CI** ; zéro Python ; English only code/tests
+- Canal = propriété du build (`-Pchannel`, défaut `jitpack`), jamais une
+  branche ; un tag = un commit ; jamais republier une version existante

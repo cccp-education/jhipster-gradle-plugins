@@ -43,3 +43,13 @@ Shim conventions `0.0.17` (N0 `workspace-bom 0.0.136`) ; CI verte. Aucune
 publication JitPack dans cette passe (assistant SNAPSHOT/legacy) ; le canal
 historique des modules reste Maven Central. Rapport
 `.agents/sessions/011-cnv-17-jitpack-channel.adoc`.
+
+== Session 014 — GBL-014-5 (canal) + GBL-014-4 (shim) + GBL-013-10 (Node 26)
+
+_Note de gouvernance (aucune US créée)._ Canal conditionnel (`-Pchannel`,
+défaut `jitpack`) sur `settings.gradle.kts` racine + `ci/run.sh -Pchannel`
+(`d639f61`) ; shim `conventions-plugin 0.0.19` (`bf3e96b`) ; actions
+`node24`-natives (`lint.yml`, `readme_truth.yml`) et image `cccp-ci-base`
+re-pinée `sha256:03ead378…` (Node 26.13.1) (`0507361`, `36bbf75`).
+**✅ TERMINÉ (S-014)** — CI `Lint` verte sur les 4 commits. Rapport
+`.agents/sessions/014-gbl-014-5-channel-rollout.adoc`.

@@ -1,0 +1,71 @@
+= Session 014 — GBL-014-5 / GBL-014-4 / GBL-013-10 (jhipster)
+:toc:
+
+:_date_: 2026-11-15
+:_borough_: Philly (jhipster-gradle-plugins, N2 — mono-repo `persistence` + `assistant`)
+:_session_precedente_: 013 (EAGER : publication JitPack canal unique)
+:_statut_: ✅ rollout livré, CI verte
+
+== Contexte
+
+Session globale 229 (2026-11-15). Deux chantiers transverses touchent le
+borough :
+
+. **GBL-014-5** — le canal de publication devient une **propriété du build**
+   (`-Pchannel`, défaut `jitpack`), jamais une branche. Un tag `vX.Y.Z` sert le
+   même commit sur les deux canaux.
+. **GBL-014-4** — shim `conventions-plugin` `0.0.18 → 0.0.19`.
+. **GBL-013-10** — dernière LTS Node : actions `node24`-natives et image CI
+   `cccp-ci-base` rebâtie sur Node 26.13.1.
+
+Cadrages : `.agents/CADRAGE_EPIC_GBL_014_DUAL_CHANNEL.adoc` et
+`.agents/CADRAGE_EPIC_GBL_013_PORTABILITE_CI.adoc` (racine workspace).
+
+== Changements
+
+* `d639f61` — **GBL-014-5** : `settings.gradle.kts` (racine du mono-repo)
+  conditionnel sur `providers.gradleProperty("channel").getOrElse("jitpack")` ;
+  dépôt JitPack + shim `useModule(...)` **seulement** en `jitpack` ; `ci/run.sh`
+  passe `-Pchannel="$channel"` sur `fast|test`
+  (`:persistence:ktlintCheck :assistant:ktlintCheck`). Note : la gate
+  `verifyChannel` n'est pas enregistrée (les deux modules n'appliquent pas
+  `.publishing`).
+* `bf3e96b` — **GBL-014-4** : shim `conventions-plugin` `0.0.18 → 0.0.19`
+  (settings racine). Aucun pin `0.0.20` disponible dans ce lot.
+* `0507361` — **GBL-013-10** : `lint.yml` (`checkout@v7`, `setup-gradle@v6`) et
+  `readme_truth.yml` (`checkout@v7`, `setup-java@v6`).
+* `36bbf75` — **GBL-013-10** : image `cccp-ci-base` re-pinée
+  `sha256:03ead3787ed8f09068cc582191e4cd8f5e48e3ce696fe53836ecd826de57ea1f`
+  (Node 26.13.1).
+* Aucun code de production modifié ; aucun test exécuté en local
+  (Local = Build, Tests = CI).
+
+== Preuves CI
+
+| Commit | Workflow | Run | Résultat
+| `d639f61` | `Lint` | `43660602652` | ✅
+| `bf3e96b` | `Lint` | `43670884431` | ✅
+| `0507361` | `Lint` | `43683433141` | ✅
+| `36bbf75` | `Lint` | `43690089025` | ✅
+
+Zéro secret, zéro publication, zéro bump de version.
+
+== Fichiers touchés
+
+* `settings.gradle.kts`
+* `ci/run.sh`
+* `.github/workflows/lint.yml`
+* `.github/workflows/readme_truth.yml`
+
+== Reste à faire
+
+* **Maintenance legacy** (borough liquidé, aucun EPIC ouvert) :
+  - Assistant EPIC 2 — RAG pgvector (indexation doc JHipster/Kotlin/Gradle/Arrow)
+  - Assistant EPIC 3 — multi-provider LLM (Ollama/Gemini/Mistral)
+  - Assistant EPIC 5 — tests intégrés + Testcontainers
+* **Publication** : `persistence 0.0.1` et `assistant 0.1.0` restent des
+  artefacts historiques Central (JitPack à tagger) ; `assistant` est
+  `SNAPSHOT`/legacy → aucun tag tant que la version n'est pas stabilisée.
+* Transverse : `bakery` (catalogue relabellé reverté), `container-provision` et
+  racines agrégateurs sans `verifyChannel`, Sonatype 130791 après reset
+  (GBL-014 US-6/US-7), GBL-013 US-7 (workflows `office` bloqués).
